@@ -1,0 +1,161 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish',
+1 verbose cli   '--registry=http://npm.fishsaying.com' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.3
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: 'F:\\My Projects\\COMPANY\\fishsaying\\yushuo-web-lib\\cc-ui',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory C:\Users\win\AppData\Roaming\npm-cache\@fs\cc-ui\1.0.0\package.tgz not in flight; packing
+9 verbose correctMkdir C:\Users\win\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+10 info lifecycle @fs/cc-ui@1.0.0~prepublish: @fs/cc-ui@1.0.0
+11 verbose lifecycle @fs/cc-ui@1.0.0~prepublish: unsafe-perm in lifecycle true
+12 verbose lifecycle @fs/cc-ui@1.0.0~prepublish: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;F:\My Projects\COMPANY\fishsaying\yushuo-web-lib\cc-ui\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\win\AppData\Local\Microsoft\WindowsApps;C:\winrun;;C:\Program Files\Microsoft VS Code\bin;C:\Users\win\AppData\Roaming\npm
+13 verbose lifecycle @fs/cc-ui@1.0.0~prepublish: CWD: F:\My Projects\COMPANY\fishsaying\yushuo-web-lib\cc-ui
+14 silly lifecycle @fs/cc-ui@1.0.0~prepublish: Args: [ '/d /s /c', 'npm run build' ]
+15 silly lifecycle @fs/cc-ui@1.0.0~prepublish: Returned: code: 0  signal: null
+16 verbose tar pack [ 'C:\\Users\\win\\AppData\\Roaming\\npm-cache\\@fs\\cc-ui\\1.0.0\\package.tgz',
+16 verbose tar pack   'F:\\My Projects\\COMPANY\\fishsaying\\yushuo-web-lib\\cc-ui' ]
+17 verbose tarball C:\Users\win\AppData\Roaming\npm-cache\@fs\cc-ui\1.0.0\package.tgz
+18 verbose folder F:\My Projects\COMPANY\fishsaying\yushuo-web-lib\cc-ui
+19 verbose addLocalTarball adding from inside cache C:\Users\win\AppData\Roaming\npm-cache\@fs\cc-ui\1.0.0\package.tgz
+20 verbose correctMkdir C:\Users\win\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+21 silly cache afterAdd @fs/cc-ui@1.0.0
+22 verbose afterAdd C:\Users\win\AppData\Roaming\npm-cache\@fs\cc-ui\1.0.0\package\package.json not in flight; writing
+23 verbose correctMkdir C:\Users\win\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+24 verbose afterAdd C:\Users\win\AppData\Roaming\npm-cache\@fs\cc-ui\1.0.0\package\package.json written
+25 silly publish { name: '@fs/cc-ui',
+25 silly publish   version: '1.0.0',
+25 silly publish   description: '鱼说通用组件库',
+25 silly publish   main: 'dist/index.js',
+25 silly publish   scripts:
+25 silly publish    { test: 'echo "Error: no test specified" && exit 1',
+25 silly publish      build: 'npm run build-lib && npm run build-dist',
+25 silly publish      'build-dist': 'rimraf dist && cross-env NODE_ENV=production webpack --progress --config ./webpack/webpack.dist.config.js',
+25 silly publish      'build-lib': 'rimraf lib && cross-env NODE_ENV=production  webpack --progress --config ./webpack/webpack.lib.config.js',
+25 silly publish      prepublish: 'npm run build',
+25 silly publish      storybook: 'start-storybook -p 6006',
+25 silly publish      'build-storybook': 'build-storybook' },
+25 silly publish   author: { name: 'soyal' },
+25 silly publish   license: 'ISC',
+25 silly publish   dependencies:
+25 silly publish    { 'babel-runtime': '^6.26.0',
+25 silly publish      classnames: '^2.2.5',
+25 silly publish      'prop-types': '^15.6.0',
+25 silly publish      react: '^16.0.0',
+25 silly publish      'react-dom': '^16.0.0',
+25 silly publish      'react-motion': '^0.5.2',
+25 silly publish      'react-router': '^4.2.0',
+25 silly publish      'react-router-dom': '^4.2.2' },
+25 silly publish   devDependencies:
+25 silly publish    { '@storybook/addon-actions': '^3.2.6',
+25 silly publish      '@storybook/addon-links': '^3.2.6',
+25 silly publish      '@storybook/react': '^3.2.8',
+25 silly publish      autoprefixer: '^7.1.4',
+25 silly publish      'babel-plugin-transform-class-properties': '^6.24.1',
+25 silly publish      'babel-plugin-transform-object-rest-spread': '^6.26.0',
+25 silly publish      'babel-plugin-transform-runtime': '^6.23.0',
+25 silly publish      'babel-preset-latest': '^6.24.1',
+25 silly publish      'babel-preset-react-app': '^3.0.3',
+25 silly publish      'cross-env': '^5.1.0',
+25 silly publish      'css-loader': '^0.28.7',
+25 silly publish      'extract-text-webpack-plugin': '^3.0.1',
+25 silly publish      less: '^2.7.2',
+25 silly publish      'less-loader': '^4.0.5',
+25 silly publish      'postcss-flexbugs-fixes': '^3.2.0',
+25 silly publish      rimraf: '^2.6.2',
+25 silly publish      storybook: '0.0.1',
+25 silly publish      'style-loader': '^0.18.2',
+25 silly publish      webpack: '^3.5.5' },
+25 silly publish   readme: '# 鱼说通用组件库',
+25 silly publish   readmeFilename: 'README.md',
+25 silly publish   gitHead: 'ed1edb5b5b074c18c406f35205a0001553799548',
+25 silly publish   _id: '@fs/cc-ui@1.0.0',
+25 silly publish   _shasum: '8f23c99b95a3a3a2c9d7774f960a1b850a35eb86',
+25 silly publish   _from: '.' }
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name @fs/cc-ui
+28 silly mapToRegistry scope (from package name) @fs
+29 verbose mapToRegistry no registry URL found in name for scope @fs
+30 silly mapToRegistry using default registry
+31 silly mapToRegistry registry http://npm.fishsaying.com/
+32 silly mapToRegistry data Result {
+32 silly mapToRegistry   raw: '@fs/cc-ui',
+32 silly mapToRegistry   scope: '@fs',
+32 silly mapToRegistry   escapedName: '@fs%2fcc-ui',
+32 silly mapToRegistry   name: '@fs/cc-ui',
+32 silly mapToRegistry   rawSpec: '',
+32 silly mapToRegistry   spec: 'latest',
+32 silly mapToRegistry   type: 'tag' }
+33 silly mapToRegistry uri http://npm.fishsaying.com/@fs%2fcc-ui
+34 verbose publish registryBase http://npm.fishsaying.com/
+35 silly publish uploading C:\Users\win\AppData\Roaming\npm-cache\@fs\cc-ui\1.0.0\package.tgz
+36 verbose request uri http://npm.fishsaying.com/@fs%2fcc-ui
+37 verbose request sending authorization for write operation
+38 info attempt registry request try #1 at 11:12:38
+39 verbose request using bearer token for auth
+40 verbose request id 786202f05f87bea8
+41 http request PUT http://npm.fishsaying.com/@fs%2fcc-ui
+42 http 409 http://npm.fishsaying.com/@fs%2fcc-ui
+43 verbose headers { server: 'nginx/1.10.2',
+43 verbose headers   date: 'Sun, 22 Oct 2017 03:12:37 GMT',
+43 verbose headers   'content-type': 'application/json; charset=utf-8',
+43 verbose headers   'content-length': '49',
+43 verbose headers   connection: 'keep-alive',
+43 verbose headers   'x-powered-by': 'verdaccio/2.3.6',
+43 verbose headers   'access-control-allow-origin': '*',
+43 verbose headers   etag: 'W/"31-u1Y+cupz+mmqz86SbSKFOrSYDs8"',
+43 verbose headers   vary: 'Accept-Encoding',
+43 verbose headers   'x-status-cat': 'http://flic.kr/p/aV6jzz' }
+44 verbose request invalidating C:\Users\win\AppData\Roaming\npm-cache\npm.fishsaying.com\_40fs_252fcc-ui on PUT
+45 verbose request uri http://npm.fishsaying.com/@fs%2fcc-ui?write=true
+46 verbose request no auth needed
+47 info attempt registry request try #1 at 11:12:38
+48 verbose request using bearer token for auth
+49 http request GET http://npm.fishsaying.com/@fs%2fcc-ui?write=true
+50 http 200 http://npm.fishsaying.com/@fs%2fcc-ui?write=true
+51 verbose headers { server: 'nginx/1.10.2',
+51 verbose headers   date: 'Sun, 22 Oct 2017 03:12:40 GMT',
+51 verbose headers   'content-type': 'application/json; charset=utf-8',
+51 verbose headers   'transfer-encoding': 'chunked',
+51 verbose headers   connection: 'keep-alive',
+51 verbose headers   'x-powered-by': 'verdaccio/2.3.6',
+51 verbose headers   'access-control-allow-origin': '*',
+51 verbose headers   etag: '"11a886e342c5db0bda4d1734df5becb9"',
+51 verbose headers   vary: 'Accept-Encoding',
+51 verbose headers   'content-encoding': 'gzip',
+51 verbose headers   'x-status-cat': 'http://flic.kr/p/aVuVsF' }
+52 verbose stack Error: cannot modify pre-existing version
+52 verbose stack     at conflictError (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\publish.js:183:11)
+52 verbose stack     at CachingRegistryClient.putNext (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\publish.js:145:15)
+52 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\publish.js:128:15
+52 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:53:8
+52 verbose stack     at f (C:\Program Files\nodejs\node_modules\npm\node_modules\once\once.js:25:25)
+52 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:76:16
+52 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:103:12
+52 verbose stack     at f (C:\Program Files\nodejs\node_modules\npm\node_modules\once\once.js:25:25)
+52 verbose stack     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:297:12)
+52 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:216:7
+53 verbose pkgid @fs/cc-ui
+54 verbose cwd F:\My Projects\COMPANY\fishsaying\yushuo-web-lib\cc-ui
+55 error Windows_NT 10.0.15063
+56 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish" "--registry=http://npm.fishsaying.com"
+57 error node v6.11.3
+58 error npm  v3.10.10
+59 error code EPUBLISHCONFLICT
+60 error publish fail Cannot publish over existing version.
+61 error publish fail Update the 'version' field in package.json and try again.
+62 error publish fail
+63 error publish fail To automatically increment version numbers, see:
+64 error publish fail npm help version
+65 verbose exit [ 1, true ]
