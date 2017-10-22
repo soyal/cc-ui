@@ -1,0 +1,11 @@
+{
+  "libNames": [
+    "react",
+    "react-dom",
+    "prop-types",
+    "react-motion",
+    "react-router",
+    "react-router-dom",
+    "classnames"
+  ]
+}

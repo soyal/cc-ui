@@ -1,3 +1,60 @@
-.button {
-  background: #53a;
+@media screen and (max-width:1400px) {
+  .cc-button {
+    &.large {
+      width: 120px;
+      height: 40px;
+    }
+  }
+}
+
+@media screen and (min-width:1401px) {
+  .cc-button {
+    &.large {
+      width: 150px;
+      height: 50px;
+    }
+  }
+}
+
+.cc-button {
+  display: flex;
+  cursor: pointer;
+  letter-spacing: 1px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #81d4c6;
+  color: #81d4c6;
+  transition: all .3s ease-in-out;
+  &:hover {
+    color: #32bba4;
+    border-color: #32bba4;
+  }
+  &.disable {
+    background: #e7e7e7;
+    border: 1px solid #e7e7e7;
+    color: #fff;
+  }
+
+  &.medium {
+    width: 120px;
+    height: 40px;
+  }
+  &.small {
+    width: 98px;
+    height: 42px;
+  }
+  // 样式
+  &.primary {
+    background: #81d4c6;
+    color: #fff;
+    &:hover {
+      background: #32bba4;
+    }
+  }
+  &.medium.circle {
+    border-radius: 21px;
+  }
+  &.large.circle {
+    border-radius: 26px;
+  }
 }

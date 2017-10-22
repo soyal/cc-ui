@@ -1,12 +1,15 @@
 const path = require("path")
 const autoprefixer = require('autoprefixer')
 
+const getExternals = require('./utils').getExternals
+const config = require('../config.json')
+
 module.exports = {
-    entry: './src/index.js',
+    entry: path.resolve(__dirname, '../src/index.js'),
     output: {
         filename: 'index.js',
         publicPath: "/dist/",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "../dist"),
         library: '@fs/cc-ui',
         libraryTarget: 'umd'
     },
@@ -61,17 +64,5 @@ module.exports = {
     },
     devtool: 'source-map',
 
-    externals: {
-        'react': {
-            root: 'React',
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'react'
-        },
-        'react-dom': {
-          commonjs: 'react-dom',
-          commonjs2: 'react-dom',
-          amd: 'react-dom'
-        }
-    }
+    externals: getExternals(config.libNames)
 }

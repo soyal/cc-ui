@@ -3,6 +3,9 @@ const autoprefixer = require('autoprefixer')
 const fs = require('fs')
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const config = require('../config.json')
+
+const getExternals = require('./utils').getExternals
 
 module.exports = {
     entry: getEntries(),
@@ -10,7 +13,7 @@ module.exports = {
     output: {
         filename: '[name]/index.js',
         publicPath: "/lib/",
-        path: path.resolve(__dirname, "lib"),
+        path: path.resolve(__dirname, "../lib"),
         library: '@fs/cc-ui-[name]',
         libraryTarget: 'umd'
     },
@@ -71,32 +74,20 @@ module.exports = {
         }),
     ],
 
-    externals: {
-        'react': {
-            root: 'React',
-            commonjs: 'react',
-            commonjs2: 'react',
-            amd: 'react'
-        },
-        'react-dom': {
-            commonjs: 'react-dom',
-            commonjs2: 'react-dom',
-            amd: 'react-dom'
-        }
-    }
+    externals: getExternals(config.libNames)
 }
 
 /**
  * 生成所有的入口键值对
  */
 function getEntries() {
-    const allFileNames = fs.readdirSync(path.resolve(__dirname, './src'))
+    const allFileNames = fs.readdirSync(path.resolve(__dirname, '../src'))
     const entries = {}
 
     allFileNames.forEach((dirname) => {
         if (dirname === 'index.js') return
 
-        entries[dirname] = path.resolve(__dirname, 'src', dirname, 'index.jsx')
+        entries[dirname] = path.resolve(__dirname, '../src', dirname, 'index.jsx')
     })
 
     return entries

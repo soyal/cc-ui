@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build-lib && npm run build-dist",
-    "build-dist": "rimraf dist && webpack --progress --config webpack.dist.config.js",
-    "build-lib": "rimraf lib && webpack --progress --config webpack.lib.config.js",
+    "build-dist": "rimraf dist && cross-env NODE_ENV=production webpack --progress --config ./webpack/webpack.dist.config.js",
+    "build-lib": "rimraf lib && cross-env NODE_ENV=production  webpack --progress --config ./webpack/webpack.lib.config.js",
     "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -16,8 +16,13 @@
   "license": "ISC",
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "react-motion": "^0.5.2",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.6",
@@ -25,8 +30,11 @@
     "@storybook/react": "^3.2.8",
     "autoprefixer": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.24.1",
+    "babel-preset-react-app": "^3.0.3",
+    "cross-env": "^5.1.0",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.1",
     "less": "^2.7.2",
