@@ -7,7 +7,7 @@ const DemoButton = () => {
   return (
     <div>
       this is button
-      <Button></Button>
+      <Button type="primary" size="medium">测试用例</Button>
     </div>
   )
 }
