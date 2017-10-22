@@ -6,13 +6,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
     entry: getEntries(),
-    
+
     output: {
         filename: '[name]/index.js',
         publicPath: "/lib/",
         path: path.resolve(__dirname, "lib"),
         library: '@fs/cc-ui-[name]',
         libraryTarget: 'umd'
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [

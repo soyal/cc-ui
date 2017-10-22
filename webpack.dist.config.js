@@ -10,6 +10,11 @@ module.exports = {
         library: '@fs/cc-ui',
         libraryTarget: 'umd'
     },
+
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+
     module: {
         rules: [
             {
