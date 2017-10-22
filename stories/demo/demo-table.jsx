@@ -4,19 +4,19 @@ import 'table/index.css'
 
 const DemoTable = () => {
   const columns = [{
-    key: 0,
     title: '姓名',
     dataIndex: 'name'
   }, {
-    key: 1,
     title: '年龄',
     dataIndex: 'age'
   }]
 
   const data = [{
+    key: 0,
     name: '张三',
     age: 11
   }, {
+    key: 1,
     name: '李四',
     age: 12
   }]
