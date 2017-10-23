@@ -34,16 +34,20 @@ const Demo = () => {
 
 ## Table
 ### 入参
-* columns: array<object>, 定制表头信息，e.g: [{dataIndex: 'name'}, {dataIndex: 'age'}]
-* data: array<object>, 表格的数据信息，信息需要和columns对应，e.g: [{name: 'a', age: 1}, {name: 'b', age: 2}]
+* columns: array<object>, 定制表头信息，e.g: [{dataIndex: 'name', title: '姓名'}, {dataIndex: 'age', title: '年龄'}]
+* data: array<object>, 表格的数据信息，信息需要和columns对应，e.g: [{key:1, name: 'a', age: 1}, {key: 2, name: 'b', age: 2}]
 
 ### example
 ```javascript
 import {Table} from '@fs/cc-ui'
 //...
 const Demo = () => {
-    const columns = [{dataIndex: 'name'}, {dataIndex: 'age'}]
-    const data = [{name: 'a', age: 1}, {name: 'b', age: 2}]
+    const columns =  [{dataIndex: 'name', title: '姓名', render: (name) => {
+        return (
+            <span>{name}</span>
+        )
+    }}, {dataIndex: 'age', title: '年龄'}]
+    const data =  [{key:1, name: 'a', age: 1}, {key: 2, name: 'b', age: 2}]
     return (
         <Table columns={columns} data={data}></Table>
     )
