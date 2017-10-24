@@ -13,7 +13,12 @@ npm install --save @fs/babel-plugin-import --registry=http://npm.fishsaying.com
 ```
 babel配置
 {
-    plugin: ['@fs/babel-plugin-import']
+    plugin: [
+        ['@fs/babel-plugin-import',{
+            libraryName: "@fs/cc-ui",
+            style: "css"
+        }]
+    ]
 }
 ```
 
