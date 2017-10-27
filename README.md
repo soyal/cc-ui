@@ -94,3 +94,40 @@ class Demo extends Component {
 //...
 ```
 
+## Pagination
+分页组件
+
+### 入参
+* total: number, 总数据条数
+* pageSize: number, 每页数据条数
+* current: number, 当前页数
+* onChange: (pageNo: number): void, 切换页数的回调
+
+### example
+
+### example
+```javascript
+import React, {Component} from 'react'
+import { Pagination } from '@fs/cc-ui'
+//...
+class Demo extends Component {
+    state = {
+        pageNo: 1
+    }
+
+    render() {
+        return (
+            <Pagination total={20}
+                    current={this.state.pageNo}
+                    pageSize={10}
+                    onClose={(pageNo) => {
+                        this.setState({
+                            pageNo
+                        })
+                    }}></Pagination>
+        )
+    }
+}
+//...
+```
+
