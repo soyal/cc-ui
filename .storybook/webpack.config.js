@@ -4,8 +4,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(css|less)$/,
+        use: [ 'style-loader', 'css-loader', 'less-loader' ]
       }
     ]
   },

@@ -63,6 +63,15 @@ module.exports = {
                         }
                     ]
                 })
+            },
+            // 加载图片
+            {
+                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                loader: require.resolve('url-loader'),
+                options: {
+                    limit: 10000,
+                    name: '[name]/images/[name].[hash:8].[ext]',
+                },
             }
         ]
     },
