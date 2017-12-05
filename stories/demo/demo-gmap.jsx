@@ -1,5 +1,7 @@
 import React from 'react'
-import AMap from '../../src/gmap'
+import AMap from 'gmap'
+
+import 'gmap/index.css'
 
 const Demo = () => {
   return (

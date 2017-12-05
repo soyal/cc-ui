@@ -104,8 +104,6 @@ class Demo extends Component {
 * onChange: (pageNo: number): void, 切换页数的回调
 
 ### example
-
-### example
 ```javascript
 import React, {Component} from 'react'
 import { Pagination } from '@fs/cc-ui'
@@ -130,4 +128,47 @@ class Demo extends Component {
 }
 //...
 ```
+
+## GMap
+高德地图组件
+
+### 入参
+* coordinate: Array [lng, lat],e.g:[134.111, 56] 地图初始化定位的经纬度
+* onChange: function,(data: Object): void 定位的回调 data: {coordinate: [lng, lat], success: 是否获取地址成功, address: 逆向编码获取到的地址}
+* noty: Object, 实现了noty接口的对象, {warning: function, success: function, error: function, info: function}
+
+### example
+
+```javascript
+import { AMap } from '@fs/cc-ui'
+
+const Demo = () => {
+  return (
+    <div style={{
+      width: '400px',
+      height: '400px'
+    }}>
+      <AMap coordinate={[0, 0]}
+            onChange={(data) => {
+                // do something
+            }}
+            noty={{
+                success: () => {
+                    alert('success')
+                },
+                error: () => {
+                    alert('error')
+                },
+                info: () => {
+                    alert('info')
+                },
+                warning: () => {
+                    alert('warning')
+                }
+            }}></AMap>
+    </div>
+  )
+}
+```
+
 
