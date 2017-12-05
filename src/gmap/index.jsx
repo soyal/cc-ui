@@ -334,17 +334,17 @@ class FsMap extends Component {
                 }
               }} />
             <span className="map-search-icon" onClick={this.search.bind(this)}>
-              <i className="cc-icon icon-sousuo"></i>
+              <i className="cc-icon cc-icon-sousuo"></i>
             </span>
           </div>
 
           {/*放大缩小*/}
           <div className="cc-map-scale">
             <span className="map-scale-zoomin" onClick={this.zoomIn.bind(this)}>
-              <i className="cc-icon icon-tianjia1"></i>
+              <i className="cc-icon cc-icon-tianjia1"></i>
             </span>
             <span className="map-scale-zoomout" onClick={this.zoomOut.bind(this)}>
-              <i className="cc-icon icon-zhankai"></i>
+              <i className="cc-icon cc-icon-zhankai"></i>
             </span>
           </div>
         </div>
