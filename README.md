@@ -140,7 +140,7 @@ class Demo extends Component {
 ### example
 
 ```javascript
-import { AMap } from '@fs/cc-ui'
+import { Gmap } from '@fs/cc-ui'
 
 const Demo = () => {
   return (
@@ -148,7 +148,7 @@ const Demo = () => {
       width: '400px',
       height: '400px'
     }}>
-      <AMap coordinate={[0, 0]}
+      <Gmap coordinate={[0, 0]}
             onChange={(data) => {
                 // do something
             }}
@@ -165,7 +165,7 @@ const Demo = () => {
                 warning: () => {
                     alert('warning')
                 }
-            }}></AMap>
+            }}></Gmap>
     </div>
   )
 }
