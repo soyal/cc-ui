@@ -92,9 +92,10 @@ module.exports = {
 function getEntries() {
     const allFileNames = fs.readdirSync(path.resolve(__dirname, '../src'))
     const entries = {}
+    const externals = ['index.js', 'common']
 
     allFileNames.forEach((dirname) => {
-        if (dirname === 'index.js') return
+        if (externals.indexOf(dirname) > -1) return
 
         entries[dirname] = path.resolve(__dirname, '../src', dirname, 'index.jsx')
     })

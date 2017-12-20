@@ -183,7 +183,7 @@ const Demo = () => {
 
 ```javascript
 import React from 'react'
-import Keywords from '@fs/keywords'
+import {Keywords} from '@fs/cc-ui'
 
 const DemoKeywords = () => {
   return (
