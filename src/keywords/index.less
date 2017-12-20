@@ -1,0 +1,71 @@
+@import url('../common/common.less');
+
+.tp_keywords {
+  margin-top: 20px;
+  & * {
+    box-sizing: border-box;
+  }
+}
+
+.tp_keywords-title {
+  font-size: 16px;
+  color: #666;
+  font-weight: normal;
+}
+.tp_keywords-tip {
+  font-size: 14px;
+  color: #999;
+}
+
+.tp_keywords-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.tp_keywords-container {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  border: 1px solid #c7c8c8;
+  border-radius: 2px;
+}
+
+
+.tp_keywords-down {
+  display: flex;
+  flex: none;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  width: 42px;
+  border-left: 1px solid #c7c8c8;
+  cursor: pointer;
+}
+.tp_keywords-down-icon {
+  width: 10px;
+  height: 10px;
+  color: #666;
+  background-image: url(./images/triangle.png);
+}
+
+
+.tp_keywords-btn {
+  display: block;
+  flex: none;
+  width: 100px;
+  height: 45px;
+  color: #fff;
+  background: #81d4c6;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 5px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: background .3s ease-in-out;
+  &:hover {
+    background: #32bba4;
+  }
+}
