@@ -171,4 +171,34 @@ const Demo = () => {
 }
 ```
 
+## 关键词
 
+### 入参
+* data: Array<String>, 显示的关键词, i.e: ['key1', 'key2']
+* candidate: Array<String>, 下拉框中的候选关键词, i.e: ['候选词1', '候选词2']
+* onChange: (data: Array<String>): void, 对显示关键词作修改的回调，包括添加和删除都会触发
+* onFetch: (): void, 点击获取关键词按钮的回调
+
+### example
+
+```javascript
+import React from 'react'
+import Keywords from '@fs/keywords'
+
+const DemoKeywords = () => {
+  return (
+    <div>
+      <Keywords data={['k1', '关键词1']}
+          candidate={['候选词1', '候选词2', '候选词3']}
+          onChange={(data) => {
+            console.log(data)
+          }}
+          onFetch={() => {
+            alert('获取关键词触发')
+          }}></Keywords>
+    </div>
+  )
+}
+
+export default DemoKeywords
+```
