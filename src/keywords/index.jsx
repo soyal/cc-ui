@@ -73,7 +73,7 @@ class Keywords extends Component {
    */
   onWordAdd = (text, index) => {
     const data = this.props.data.slice()
-
+    text = text.trim()
     if(!text) return
 
     // 添加的关键词已经存在
