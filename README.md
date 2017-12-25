@@ -177,7 +177,7 @@ const Demo = () => {
 * data: Array<String>, 显示的关键词, i.e: ['key1', 'key2']
 * candidate: Array<String>, 下拉框中的候选关键词, i.e: ['候选词1', '候选词2']
 * onChange: (data: Array<String>): void, 对显示关键词作修改的回调，包括添加和删除都会触发
-* onFetch: (): void, 点击获取关键词按钮的回调
+* onFetch: (): Boolean, 点击获取关键词按钮的回调, 返回为true表示希望在点击获取后展开下拉面板
 
 ### example
 

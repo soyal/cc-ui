@@ -14,7 +14,7 @@ class Keywords extends Component {
     data: PropTypes.arrayOf(PropTypes.string),  // 显示的关键词
     candidate: PropTypes.arrayOf(PropTypes.string),  // 候选词
     onChange: PropTypes.func,  // 用户对关键词进行操作后的回调，回传更改后的关键词 (data: Array<string>):void
-    onFetch: PropTypes.func  // 点击获取关键词按钮触发
+    onFetch: PropTypes.func  // 点击获取关键词按钮触发 (): Boolean 是否该显示面板
   }
 
   state = {
@@ -32,6 +32,13 @@ class Keywords extends Component {
     this.setState({
       showPanel: !this.state.showPanel
     })
+  }
+
+  onFetchClick = () => {
+    const shouldShow = this.props.onFetch()
+    if(shouldShow) {
+      this.showPanel()
+    } 
   }
 
   _showInput = () => {
@@ -58,11 +65,6 @@ class Keywords extends Component {
     })
   }
 
-  onFetchClick = () => {
-    this.showPanel()
-    this.props.onFetch()
-  }
-
   doOnChange = (data) => {
     this.props.onChange && this.props.onChange(data)
   }
@@ -85,10 +87,10 @@ class Keywords extends Component {
   onWordAdd = (text, index) => {
     const data = this.props.data.slice()
     text = text.trim()
-    if(!text) return
+    if (!text) return
 
     // 添加的关键词已经存在
-    if(data.indexOf(text) > -1) {
+    if (data.indexOf(text) > -1) {
       noty.warning(`${text}已经存在`)
       return
     }
@@ -97,7 +99,7 @@ class Keywords extends Component {
 
     this.doOnChange(data)
 
-    if(this.state.inputShow === true) {
+    if (this.state.inputShow === true) {
       this._hideInput()
     }
   }
@@ -115,7 +117,11 @@ class Keywords extends Component {
     const { data, candidate } = this.props
 
     return (
-      <div className="tp_keywords">
+      <div className="tp_keywords"
+        onClick={(e) => {
+          e.nativeEvent.stopImmediatePropagation()
+          e.stopPropagation()
+        }}>
         {/*标题*/}
         <h4 className="tp_keywords-title">
           关键词

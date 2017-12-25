@@ -11,6 +11,7 @@ const DemoKeywords = () => {
           }}
           onFetch={() => {
             alert('获取关键词触发')
+            return true
           }}></Keywords>
     </div>
   )
