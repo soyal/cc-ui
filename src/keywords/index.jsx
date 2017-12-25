@@ -52,6 +52,17 @@ class Keywords extends Component {
     })
   }
 
+  showPanel = () => {
+    this.setState({
+      showPanel: true
+    })
+  }
+
+  onFetchClick = () => {
+    this.showPanel()
+    this.props.onFetch()
+  }
+
   doOnChange = (data) => {
     this.props.onChange && this.props.onChange(data)
   }
@@ -141,7 +152,7 @@ class Keywords extends Component {
 
           {/*button*/}
           <a className="tp_keywords-btn"
-            onClick={this.props.onFetch}>获取关键词</a>
+            onClick={this.onFetchClick}>获取关键词</a>
         </div>
       </div>
     )
