@@ -3,3 +3,4 @@ stories/
 .storybook/
 .vscode/
 .idea/
+.babelrc
