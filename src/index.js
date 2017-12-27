@@ -9,3 +9,5 @@ export { default as Pagination } from './pagination'
 export { default as Gmap } from './gmap'
 
 export { default as Keywords } from './keywords'
+
+export { default as Tabs } from './tabs'

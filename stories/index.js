@@ -6,6 +6,7 @@ import DemoTable from './demo/demo-table'
 import DemoModal from './demo/demo-modal'
 import DemoGmap from './demo/demo-gmap'
 import DemoKeywords from './demo/demo-keywords'
+import DemoTabs from './demo/demo-tabs'
 
 storiesOf('Demo', module)
   .add('button', () => <DemoButton></DemoButton>)
@@ -13,3 +14,4 @@ storiesOf('Demo', module)
   .add('modal', () => <DemoModal></DemoModal>)
   .add('gmap', () => <DemoGmap></DemoGmap>)
   .add('keywords', () => <DemoKeywords></DemoKeywords>)
+  .add('tabs', () => <DemoTabs></DemoTabs>)
