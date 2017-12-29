@@ -1,7 +1,5 @@
 import React from 'react'
-import Button from 'button'
-
-import 'button/index.css' 
+import Button from '../../src/button'
 
 const DemoButton = () => {
   return (

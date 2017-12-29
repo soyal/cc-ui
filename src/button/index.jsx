@@ -3,7 +3,6 @@
  */
 
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -50,12 +49,12 @@ let Button = ({ children, size, type, shape, style, onClick, to, disabled,
 
   return (
     to ? (
-      <Link style={style}
+      <a style={style}
         onClick={onClick}
         to={to}
         onMouseEnter={onMouseEnter}
         onMouseOut={onMouseOut}
-        className={classnames(`cc-button ${classNames.join(' ')}`, className)}>{children}</Link>
+        className={classnames(`cc-button ${classNames.join(' ')}`, className)}>{children}</a>
     ) : (
         <span style={style}
           onClick={onClick}

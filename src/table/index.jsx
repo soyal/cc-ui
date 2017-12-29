@@ -33,7 +33,7 @@ import './index.less'
       }
     }]
  */
-let Table = ({ style, type, columns, data }) => {
+const Table = ({ style, type, columns, data }) => {
   let columnTitles = [],  // 用于thead
     dataIndexes = [],  // 用于渲染tbody
     renderTable = {}  // 当有条目传递了render字段，由该render控制对应td的显示
@@ -41,11 +41,12 @@ let Table = ({ style, type, columns, data }) => {
     columnTitles.push(column.title)
     dataIndexes.push(column.dataIndex)
 
-    if(column.render) {
+    if (column.render) {
       renderTable[column.dataIndex] = column.render
     }
   })
 
+  data = data || []
   return (
     <table className="cc-table" style={style}>
       <thead className="cc-table-thead">
@@ -56,14 +57,15 @@ let Table = ({ style, type, columns, data }) => {
           })}
         </tr>
       </thead>
+
       <tbody className={`cc-table-tbody ${type || ''}`}>
         {/*渲染tbody数据*/}
-        {(data || []).map((item) => {
+        {data.map((item) => {
           return (
             <tr key={item.key}>
               {dataIndexes.map((dataIndex) => {
                 // 将渲染控制权交由用户传递的render
-                if(renderTable[dataIndex]) {
+                if (renderTable[dataIndex]) {
                   return <td key={dataIndex}>{renderTable[dataIndex](item[dataIndex])}</td>
                 } else {
                   return <td key={dataIndex}>{item[dataIndex]}</td>

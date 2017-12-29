@@ -1,6 +1,5 @@
 import React from 'react'
-import Table from 'table'
-import 'table/index.css'
+import Table from '../../src/table'
 
 const DemoTable = () => {
   const columns = [{
@@ -14,17 +13,24 @@ const DemoTable = () => {
   }]
 
   const data = [{
+    key:1,
     name: '张三',
     age: 11
   }, {
+    key:2,
     name: '李四',
     age: 12
   }]
 
   return (
     <div>
+      <h3>有数据的情况</h3>
       <Table columns={columns}
             data={data}></Table>
+
+      <h3>无数据的情况</h3>
+      <Table columns={columns}
+          data={[]}></Table>
     </div>
   )
 }
