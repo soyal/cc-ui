@@ -174,7 +174,7 @@ class Pagination extends Component {
       this.changeIndex(nextProps.current, false)
     }
 
-    if (nextProps.total) {
+    if (nextProps.total !== undefined) {
       this.setState({
         size: Math.ceil(nextProps.total / nextProps.pageSize)
       })
