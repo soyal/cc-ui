@@ -4,3 +4,4 @@ stories/
 .vscode/
 .idea/
 .babelrc
+.eslintrc.json
