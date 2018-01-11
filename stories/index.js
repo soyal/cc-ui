@@ -8,6 +8,7 @@ import DemoGmap from './demo/demo-gmap'
 import DemoKeywords from './demo/demo-keywords'
 import DemoTabs from './demo/demo-tabs'
 import DemoPagination from './demo/demo-pagination'
+import DemoSelect from './demo/demo-select'
 
 storiesOf('Demo', module)
   .add('button', () => <DemoButton></DemoButton>)
@@ -17,3 +18,4 @@ storiesOf('Demo', module)
   .add('keywords', () => <DemoKeywords></DemoKeywords>)
   .add('pagination', () => <DemoPagination></DemoPagination>)
   .add('tabs', () => <DemoTabs></DemoTabs>)
+  .add('select', () => <DemoSelect></DemoSelect>)

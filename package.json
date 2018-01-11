@@ -1,6 +1,6 @@
 {
   "name": "@fs/cc-ui",
-  "version": "1.3.4",
+  "version": "1.4.0",
   "description": "鱼说通用组件库",
   "main": "dist/index.js",
   "scripts": {
