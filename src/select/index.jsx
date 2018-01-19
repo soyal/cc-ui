@@ -11,13 +11,13 @@ class Select extends Component {
   static propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-    activeKey: PropTypes.string,  //当前所选择的option的key
-    options: PropTypes.array.isRequired,  // [{text: 显示的文字, key: 唯一键值, value: any}]
-    placeholder: PropTypes.string,  // 占位文字
-    onChange: PropTypes.func,  // 进行选择后的回调
-    selected: PropTypes.bool,  // 是否展开下拉面板
-    onSelect: PropTypes.func,  // 面板展开或者收起的回调 (isSelected: boolean): void
-    theme: PropTypes.string  // white || grey 主题
+    activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), //当前所选择的option的key
+    options: PropTypes.array.isRequired, // [{text: 显示的文字, key: 唯一键值, value: any}]
+    placeholder: PropTypes.string, // 占位文字
+    onChange: PropTypes.func, // 进行选择后的回调
+    selected: PropTypes.bool, // 是否展开下拉面板
+    onSelect: PropTypes.func, // 面板展开或者收起的回调 (isSelected: boolean): void
+    theme: PropTypes.string // white || grey 主题
   }
 
   static defaultProps = {
@@ -28,7 +28,7 @@ class Select extends Component {
   }
 
   state = {
-    status: 'deactive',  // deactive normal active
+    status: 'deactive', // deactive normal active
     activeKey: this.props.activeKey || '',
     longestOptionText: this.findLongestOptionText(this.props.options)
   }
@@ -47,7 +47,7 @@ class Select extends Component {
   findLongestOptionText(options) {
     let text = ''
 
-    options.forEach((option) => {
+    options.forEach(option => {
       if (option.text.length > text.length) {
         text = option.text
       }
@@ -88,20 +88,23 @@ class Select extends Component {
 
   /**
    * option被选择后的回调
-   * @param {String} key option key 
+   * @param {String} key option key
    * @param {Boolean} triggerOnChange 是否回传数据，触发onChange
    */
   _onSelect(key, triggerOnChange = true, triggerOnSelect = true) {
     if (key !== this.state.activeKey) {
-      this.setState({
-        activeKey: key
-      }, () => {
-        if (key === '') {
-          this._deactive(triggerOnSelect)
-        } else {
-          this._normal(triggerOnSelect)
+      this.setState(
+        {
+          activeKey: key
+        },
+        () => {
+          if (key === '') {
+            this._deactive(triggerOnSelect)
+          } else {
+            this._normal(triggerOnSelect)
+          }
         }
-      })
+      )
     } else {
       if (key === '') {
         this._deactive(triggerOnSelect)
@@ -111,7 +114,7 @@ class Select extends Component {
     }
 
     if (triggerOnChange) {
-      const activeOption = this.props.options.find((option) => {
+      const activeOption = this.props.options.find(option => {
         return option.key === key
       })
 
@@ -121,7 +124,7 @@ class Select extends Component {
 
   /**
    * 回传数据
-   * @param {String} value 
+   * @param {String} value
    */
   doOnChange(key, value) {
     this.props.onChange && this.props.onChange(key, value)
@@ -137,7 +140,7 @@ class Select extends Component {
     if (activeKey === '') {
       return this.props.placeholder
     }
-    let activeItem = this.props.options.find((option) => {
+    let activeItem = this.props.options.find(option => {
       return option.key === activeKey
     })
     return activeItem ? activeItem.text : this.props.placeholder
@@ -180,8 +183,10 @@ class Select extends Component {
 
     // options的变更
     const nOptions = nextProps.options
-    if (nOptions.length !== this.props.options
-      && nOptions[0] !== this.props.options[0]) {
+    if (
+      nOptions.length !== this.props.options &&
+      nOptions[0] !== this.props.options[0]
+    ) {
       this.setState({
         longestOptionText: this.findLongestOptionText(nOptions)
       })
@@ -201,41 +206,52 @@ class Select extends Component {
     const { className, style, options, theme } = this.props
 
     return (
-      <div className={classnames("mpc-select", className, theme)}
+      <div
+        className={classnames('mpc-select', className, theme)}
         style={style}
-        onClick={(e) => {
+        onClick={e => {
           // 捕获元素内部的click，不让其冒泡到document
           e.stopPropagation()
           e.nativeEvent.stopImmediatePropagation()
-        }}>
+        }}
+      >
         {/*文字显示部分*/}
-        <div className={classnames("mpc-select_text", status)}
-          onClick={this.toggleStatus.bind(this)}>
-          <span className="mpc-select_text-span">{longestOptionText || this.getSelectedText()}</span>
-          <span className="mpc-select_text-span-true">{this.getSelectedText()}</span>
-          <i className="mpc-select_triangle"></i>
+        <div
+          className={classnames('mpc-select_text', status)}
+          onClick={this.toggleStatus.bind(this)}
+        >
+          <span className="mpc-select_text-span">
+            {longestOptionText || this.getSelectedText()}
+          </span>
+          <span className="mpc-select_text-span-true">
+            {this.getSelectedText()}
+          </span>
+          <i className="mpc-select_triangle" />
         </div>
 
         {/*下拉面板*/}
         {status === 'active' ? (
           options.length > 0 ? (
             <ul className="mpc-select_panel">
-              {this.props.options.map((option) => (
-                <li key={option.key}
-                  className={classnames(
-                    "mpc-select_panel-item",
-                    { 'active': option.key === this.state.activeKey }
-                  )}
+              {this.props.options.map(option => (
+                <li
+                  key={option.key}
+                  className={classnames('mpc-select_panel-item', {
+                    active: option.key === this.state.activeKey
+                  })}
                   onClick={() => {
                     this._onSelect(option.key)
-                  }}>{option.text}</li>
+                  }}
+                >
+                  {option.text}
+                </li>
               ))}
             </ul>
           ) : (
-              <ul className="mpc-select_panel">
-                <li className="mpc-select_panel-item">无</li>
-              </ul>
-            )
+            <ul className="mpc-select_panel">
+              <li className="mpc-select_panel-item">无</li>
+            </ul>
+          )
         ) : null}
       </div>
     )
