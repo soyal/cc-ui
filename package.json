@@ -1,6 +1,6 @@
 {
   "name": "@fs/cc-ui",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "鱼说通用组件库",
   "main": "dist/index.js",
   "scripts": {
@@ -19,8 +19,8 @@
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
     "prop-types": "^15.6.0",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-motion": "^0.5.2"
   },
   "peerDependencies": {
