@@ -1,0 +1,38 @@
+
+.header-qrcode {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  &:hover > .header-qrcode-ctn {
+    display: block;
+  }
+}
+.header-qrcode-trigger {
+  font-size: 20px;
+  padding: 10px;
+  padding-right: 0;
+  color: #000;
+}
+.header-qrcode-ctn {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  background: #fff;
+  text-align: center;
+  width: 208px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+.header-qrcode-code {
+  width: 160px;
+  height: 160px;
+}
+.header-qrcode-info {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.3;
+}

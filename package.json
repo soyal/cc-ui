@@ -1,6 +1,6 @@
 {
   "name": "@fs/cc-ui",
-  "version": "2.0.2",
+  "version": "2.1.1",
   "description": "鱼说通用组件库",
   "main": "dist/index.js",
   "scripts": {
@@ -25,12 +25,14 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "art-qr": "^0.1.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.6",
     "@storybook/addon-links": "^3.2.6",
     "@storybook/react": "^3.2.8",
+    "art-qr": "^0.1.2",
     "autoprefixer": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -45,6 +47,8 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "postcss-flexbugs-fixes": "^3.2.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
     "storybook": "0.0.1",
     "style-loader": "^0.18.2",
