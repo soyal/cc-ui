@@ -5,14 +5,14 @@ const { RadioGroup } = Radio
 
 class DemoRadio extends Component {
   state = {
-    value: 'apple'
+    value: 'banana'
   }
 
   render() {
     return (
       <div>
         <RadioGroup
-          value={this.state.value}
+          value={'banana'}
           onChange={value => {
             this.setState({ value })
           }}
