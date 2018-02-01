@@ -202,3 +202,22 @@ const DemoKeywords = () => {
 
 export default DemoKeywords
 ```
+
+## 公共头部(Header)
+
+### 入参
+* data: Array<String>, 显示的关键词, i.e: ['key1', 'key2']
+* candidate: Array<String>, 下拉框中的候选关键词, i.e: ['候选词1', '候选词2']
+* onChange: (data: Array<String>): void, 对显示关键词作修改的回调，包括添加和删除都会触发
+* onFetch: (): Boolean, 点击获取关键词按钮的回调, 返回为true表示希望在点击获取后展开下拉面板
+
+### example
+
+* qrText: String, 生成的二维码对应的字符串
+* userName: String, 右侧显示的用户名
+* photo: String, 右侧显示的用户头像url
+* logout: function, hover用户头像下拉中,点击退出登录的回调
+* settingUrl: String, 点击用户设置跳转的url
+* stage: Object, 左侧平台hover后的下拉数据结构, e.g{name: '文化号', options: [{name: '管理平台', to: '//example.fishsaying.com'}]}
+* hideRight: Boolean, 是否隐藏右侧内容(包括用户姓名，二维码)
+* hideHoverDown : Boolean, 是否隐藏用户头像hover下拉(用户设置，退出登录等)

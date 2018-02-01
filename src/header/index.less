@@ -1,8 +1,9 @@
 @import '../style/common.less';
+@import './param.less';
 
 .header {
   position: relative;
-  height: 66px;
+  .header__height();
   box-sizing: border-box;
   border-bottom: 1px solid rgba(172,191,188,.3);
   z-index: 11;
@@ -11,7 +12,7 @@
   width: 82px;
   height: 100%;
   text-align: center;
-  line-height: 66px;
+  .header__line-height();
   float: left;
   background: #81d4c6;
   i {
@@ -23,7 +24,7 @@
   color: #333333;
   float: left;
   font-size: 20px;
-  line-height: 66px;
+  .header__line-height();
   margin-left: 34px;
 }
 

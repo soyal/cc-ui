@@ -17,8 +17,8 @@ const HeaderDemo = () => {
           }
         ]
       }}
-      hideRight={true}
-      qrText="test"
+      hideRight={false}
+      hideHoverDown={true}
       userName="鱼说测试"
       photo="//static-cdn.fishsaying.com/cultrue-cc/logo.png"
       logout={() => {

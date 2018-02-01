@@ -1,6 +1,6 @@
 {
   "name": "@fs/cc-ui",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "鱼说通用组件库",
   "main": "dist/index.js",
   "scripts": {
@@ -18,15 +18,15 @@
     "@fs/noty": "^1.1.0",
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
-    "react-motion": "^0.5.2"
+    "react-motion": "^0.5.2",
+    "art-qr": "^0.1.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "art-qr": "^0.1.2"
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.2.6",
