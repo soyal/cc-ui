@@ -15,7 +15,8 @@ const Header = ({
   logout,
   settingUrl,
   stage,
-  hideRight = false
+  hideRight = false,
+  hideHoverDown = false
 }) => {
   return (
     <div className="header clearfix">
@@ -43,18 +44,19 @@ const Header = ({
             <span className="header-userinfo-name">{userName}</span>
 
             {/*hover显示的用户操作项*/}
-            <ul className="header-userinfo-operation">
-              <li className="operation-item">
-                <a className="operation-item-link" href={settingUrl}>
-                  用户设置
-                </a>
-              </li>
-              <li className="operation-item" onClick={logout}>
-                退出登录
-              </li>
-            </ul>
+            {hideHoverDown ? null : (
+              <ul className="header-userinfo-operation">
+                <li className="operation-item">
+                  <a className="operation-item-link" href={settingUrl}>
+                    用户设置
+                  </a>
+                </li>
+                <li className="operation-item" onClick={logout}>
+                  退出登录
+                </li>
+              </ul>
+            )}
           </div>
-          <i style={{ marginLeft: '10px' }} className="header-divde-line" />
 
           <Qrcode qrText={qrText} />
         </div>
@@ -73,7 +75,8 @@ Header.propTypes = {
    * {name: '文化号', options: [{name: '管理平台', to: '//example.fishsaying.com'}]}
    */
   stage: PropTypes.object,
-  hideRight: PropTypes.bool // 隐藏右侧用户信息部分
+  hideRight: PropTypes.bool, // 隐藏右侧用户信息部分
+  hideHoverDown: PropTypes.bool // 隐藏用户头像hover下拉
 }
 
 export default Header

@@ -11,6 +11,7 @@ import DemoPagination from './demo/demo-pagination'
 import DemoSelect from './demo/demo-select'
 import DemoCheckbox from './demo/demo-checkbox'
 import DemoRadio from './demo/demo-radio'
+import DemoSpin from './demo/demo-spin'
 import DemoHeader from './demo/demo-header'
 
 storiesOf('Demo', module)
@@ -24,4 +25,5 @@ storiesOf('Demo', module)
   .add('select', () => <DemoSelect />)
   .add('checkbox', () => <DemoCheckbox />)
   .add('radio', () => <DemoRadio />)
-  .add('common header', () => <DemoHeader></DemoHeader>)
+  .add('spin', () => <DemoSpin />)
+  .add('common header', () => <DemoHeader />)

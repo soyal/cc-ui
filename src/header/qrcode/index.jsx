@@ -10,7 +10,7 @@ import './index.less'
 const logoUrl = '//static-cdn.fishsaying.com/cultrue-cc/logo.png'
 class Qrcode extends Component {
   static propTypes = {
-    qrText: PropTypes.string  // 二维码内容
+    qrText: PropTypes.string // 二维码内容
   }
 
   static defaultProps = {
@@ -18,7 +18,7 @@ class Qrcode extends Component {
   }
 
   state = {
-    qrcodeSrc: ''  //二维码的地址
+    qrcodeSrc: '' //二维码的地址
   }
 
   /**
@@ -37,7 +37,7 @@ class Qrcode extends Component {
         margin: 0,
         whiteMargin: false,
         dotScale: 1,
-        callback: (dataURI) => {
+        callback: dataURI => {
           this.setState({
             qrcodeSrc: dataURI
           })
@@ -46,12 +46,11 @@ class Qrcode extends Component {
     }
 
     image.src = logoUrl
-
   }
 
   componentWillReceiveProps(nextProps) {
     const nQrText = nextProps.qrText
-    if(nQrText && (nQrText !== this.props.qrText)) {
+    if (nQrText && nQrText !== this.props.qrText) {
       this.generateQrcode(nextProps.qrText)
     }
   }
@@ -61,7 +60,7 @@ class Qrcode extends Component {
    */
   componentDidMount() {
     const { qrText } = this.props
-    if(qrText) {
+    if (qrText) {
       this.generateQrcode(qrText)
     }
   }
@@ -71,12 +70,20 @@ class Qrcode extends Component {
   }
 
   render() {
+    if (!this.props.qrText) return null
+
     return (
       <div className="header-qrcode">
-        <i className="iconfont icon-erweima header-qrcode-trigger"></i>
+        <i style={{ marginLeft: '10px' }} className="header-divde-line" />
+        <i className="iconfont icon-erweima header-qrcode-trigger" />
         {/*hover后显示的二维码*/}
         <div className="header-qrcode-ctn">
-          <img src={this.state.qrcodeSrc} alt="" className="header-qrcode-code" style={{marginBottom: '10px'}}/>
+          <img
+            src={this.state.qrcodeSrc}
+            alt=""
+            className="header-qrcode-code"
+            style={{ marginBottom: '10px' }}
+          />
           <p className="header-qrcode-info">微信扫一扫</p>
           <p className="header-qrcode-info">进入您的文化号主页</p>
         </div>

@@ -1,10 +1,12 @@
+@import '../param.less';
+
 .header__select {
   display: inline-block;
   position: relative;
-  font-size: 16px;
+  .header__font-size();
   padding-left: 27px;
-  line-height: 66px;
-  height: 66px;
+  .header__line-height();
+  .header__height();
   cursor: pointer;
   &:hover > .header__select-dropdown {
     display: block;
@@ -14,7 +16,7 @@
 .header__select-trigger {
   display: inline-block;
   & > span {
-    font-size: 16px;
+    .header__font-size();
   }
   &.show-down {
     &:after {
@@ -38,9 +40,8 @@
 
 .header__select-item {
   display: block;
-  height: 55px;
   color: #333;
-  line-height: 55px;
+  .header__select-item-height();
   text-align: center;
   background: #fff;
   &:hover {
