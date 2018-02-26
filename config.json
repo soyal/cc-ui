@@ -8,6 +8,7 @@
     "react-router-dom",
     "classnames",
     "@fs/noty",
-    "art-qr"
+    "art-qr",
+    "domkit"
   ]
 }
