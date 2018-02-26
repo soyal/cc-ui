@@ -14,10 +14,10 @@ npm install --save @fs/babel-plugin-import --registry=http://npm.fishsaying.com
 babel配置
 {
     plugin: [
-        ['@fs/babel-plugin-import',{
-            libraryName: "@fs/cc-ui",
-            style: "css"
-        }]
+        ["@fs/babel-plugin-import",{
+        "libraryName": "@fs/cc-ui",
+        "style": "css"
+        }],
     ]
 }
 ```
@@ -221,3 +221,30 @@ export default DemoKeywords
 * stage: Object, 左侧平台hover后的下拉数据结构, e.g{name: '文化号', options: [{name: '管理平台', to: '//example.fishsaying.com'}]}
 * hideRight: Boolean, 是否隐藏右侧内容(包括用户姓名，二维码)
 * hideHoverDown : Boolean, 是否隐藏用户头像hover下拉(用户设置，退出登录等)
+
+## Spin
+### 入参
+* show: Booelean, 是否显示spin
+* size: String, small || medium || large
+### example 
+```javascript
+import React from 'react'
+import { Spin } from '@fs/cc-ui'
+
+const Demo = () => {
+  return (
+    <Spin show={true}>
+      <div style={{
+        display: 'inline-block',
+        width: '100px',
+        height: '100px',
+        background: 'red'
+      }}>
+        <p>11111111111</p>
+        <p>2222222222</p>
+        <p>3333333333</p>
+      </div>
+    </Spin>
+  )
+}
+```
