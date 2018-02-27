@@ -88,6 +88,9 @@ module.exports = {
 
 /**
  * 生成所有的入口键值对
+ * {
+ *  a: '/src/a/index.jsx'
+ * }
  */
 function getEntries() {
     const allFileNames = fs.readdirSync(path.resolve(__dirname, '../src'))
