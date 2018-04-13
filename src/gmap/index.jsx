@@ -186,7 +186,7 @@ class FsMap extends Component {
       }
 
       // 默认[0, 0]不进行逆地理编码
-      if(target[0] === 0 && target[1] === 0) return
+      if (target[0] === 0 && target[1] === 0) return
 
       if (!this.geocoder) {
         noty.warning('逆地理编码插件加载失败')

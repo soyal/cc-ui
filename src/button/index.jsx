@@ -8,8 +8,19 @@ import classnames from 'classnames'
 
 import './index.less'
 
-let Button = ({ children, size, type, shape, style, onClick, to, disabled,
-  onMouseEnter, onMouseOut, className }) => {
+let Button = ({
+  children,
+  size,
+  type,
+  shape,
+  style,
+  onClick,
+  to,
+  disabled,
+  onMouseEnter,
+  onMouseOut,
+  className
+}) => {
   let classNames = []
 
   // 设置大小
@@ -29,17 +40,23 @@ let Button = ({ children, size, type, shape, style, onClick, to, disabled,
     // 将样式设置为disable
     classNames.push('disable')
 
-    return <a style={{
-      ...style,
-      cursor: 'default'
-    }}
-      onClick={(e) => {
-        e.stopPropagation()
-        e.nativeEvent.stopImmediatePropagation()
-      }}
-      onMouseEnter={onMouseEnter}
-      onMouseOut={onMouseOut}
-      className={`cc-button ${classNames.join(' ')}`}>{children}</a>
+    return (
+      <a
+        style={{
+          ...style,
+          cursor: 'default'
+        }}
+        onClick={e => {
+          e.stopPropagation()
+          e.nativeEvent.stopImmediatePropagation()
+        }}
+        onMouseEnter={onMouseEnter}
+        onMouseOut={onMouseOut}
+        className={`cc-button ${classNames.join(' ')}`}
+      >
+        {children}
+      </a>
+    )
   }
 
   // 主题
@@ -47,33 +64,39 @@ let Button = ({ children, size, type, shape, style, onClick, to, disabled,
     classNames.push(type)
   }
 
-  return (
-    to ? (
-      <a style={style}
-        onClick={onClick}
-        to={to}
-        onMouseEnter={onMouseEnter}
-        onMouseOut={onMouseOut}
-        className={classnames(`cc-button ${classNames.join(' ')}`, className)}>{children}</a>
-    ) : (
-        <span style={style}
-          onClick={onClick}
-          onMouseEnter={onMouseEnter}
-          onMouseOut={onMouseOut}
-          className={classnames(`cc-button ${classNames.join(' ')}`, className)}>{children}</span>
-      )
+  return to ? (
+    <a
+      style={style}
+      onClick={onClick}
+      to={to}
+      onMouseEnter={onMouseEnter}
+      onMouseOut={onMouseOut}
+      className={classnames(`cc-button ${classNames.join(' ')}`, className)}
+    >
+      {children}
+    </a>
+  ) : (
+    <span
+      style={style}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseOut={onMouseOut}
+      className={classnames(`cc-button ${classNames.join(' ')}`, className)}
+    >
+      {children}
+    </span>
   )
 }
 
 Button.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.string,  // 主题类型，可选primary, disable，默认default
-  shape: PropTypes.string,  // 形状，可选circle，默认无
-  size: PropTypes.string.isRequired,  // 大小，必选，medium或者large
-  style: PropTypes.object,  // 样式
-  onClick: PropTypes.func,  // 点击的回调
-  disabled: PropTypes.bool,  // 是否禁用，默认false
-  to: PropTypes.string,  // 用于react-router路由跳转，如果传递会渲染成Link
+  type: PropTypes.string, // 主题类型，可选primary, disable，默认default
+  shape: PropTypes.string, // 形状，可选circle，默认无
+  size: PropTypes.string.isRequired, // 大小，必选，medium或者large
+  style: PropTypes.object, // 样式
+  onClick: PropTypes.func, // 点击的回调
+  disabled: PropTypes.bool, // 是否禁用，默认false
+  to: PropTypes.string, // 用于react-router路由跳转，如果传递会渲染成Link
   onMouseEnter: PropTypes.func,
   onMouseOut: PropTypes.func
 }

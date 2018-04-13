@@ -11,10 +11,10 @@ import './index.less'
 
 class Keywords extends Component {
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.string),  // 显示的关键词
-    candidate: PropTypes.arrayOf(PropTypes.string),  // 候选词
-    onChange: PropTypes.func,  // 用户对关键词进行操作后的回调，回传更改后的关键词 (data: Array<string>):void
-    onFetch: PropTypes.func  // 点击获取关键词按钮触发 (): Boolean 是否该显示面板
+    data: PropTypes.arrayOf(PropTypes.string), // 显示的关键词
+    candidate: PropTypes.arrayOf(PropTypes.string), // 候选词
+    onChange: PropTypes.func, // 用户对关键词进行操作后的回调，回传更改后的关键词 (data: Array<string>):void
+    onFetch: PropTypes.func // 点击获取关键词按钮触发 (): Boolean 是否该显示面板
   }
 
   state = {
@@ -25,7 +25,7 @@ class Keywords extends Component {
   /**
    * 切换panel的显示和隐藏
    */
-  togglePanel = (e) => {
+  togglePanel = e => {
     e.preventDefault()
     e.nativeEvent.stopImmediatePropagation()
 
@@ -36,9 +36,9 @@ class Keywords extends Component {
 
   onFetchClick = () => {
     const shouldShow = this.props.onFetch()
-    if(shouldShow) {
+    if (shouldShow) {
       this.showPanel()
-    } 
+    }
   }
 
   _showInput = () => {
@@ -65,7 +65,7 @@ class Keywords extends Component {
     })
   }
 
-  doOnChange = (data) => {
+  doOnChange = data => {
     this.props.onChange && this.props.onChange(data)
   }
 
@@ -117,48 +117,49 @@ class Keywords extends Component {
     const { data, candidate } = this.props
 
     return (
-      <div className="tp_keywords"
-        onClick={(e) => {
+      <div
+        className="tp_keywords"
+        onClick={e => {
           e.nativeEvent.stopImmediatePropagation()
           e.stopPropagation()
-        }}>
+        }}
+      >
         {/*标题*/}
         <h4 className="tp_keywords-title">
           关键词
-          <span className="tp_keywords-tip">
-            (限10个关键词)
-          </span>
+          <span className="tp_keywords-tip">(限10个关键词)</span>
         </h4>
 
         <div className="tp_keywords-wrap">
           {/*关键词显示容器*/}
           <div className="tp_keywords-container">
             {/*关键词*/}
-            <TagList data={data}
+            <TagList
+              data={data}
               onClose={this.onWordDel}
               onEnter={this.onWordAdd}
               onAddClick={this._showInput}
               onInputBlur={this._hideInput}
-              inputShow={inputShow}></TagList>
+              inputShow={inputShow}
+            />
 
             {/*下拉按钮*/}
             {candidate.length > 0 ? (
-              <span className="tp_keywords-down"
-                onClick={this.togglePanel}>
-                <i className="tp_keywords-down-icon bg-100"></i>
+              <span className="tp_keywords-down" onClick={this.togglePanel}>
+                <i className="tp_keywords-down-icon bg-100" />
               </span>
             ) : null}
 
             {/*候选词下拉面板*/}
             {showPanel ? (
-              <WordsPanel data={candidate}
-                onClick={this.onWordAdd}></WordsPanel>
+              <WordsPanel data={candidate} onClick={this.onWordAdd} />
             ) : null}
           </div>
 
           {/*button*/}
-          <a className="tp_keywords-btn"
-            onClick={this.onFetchClick}>获取关键词</a>
+          <a className="tp_keywords-btn" onClick={this.onFetchClick}>
+            获取关键词
+          </a>
         </div>
       </div>
     )

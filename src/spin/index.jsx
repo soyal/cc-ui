@@ -1,4 +1,4 @@
-import React,  {Component} from 'react'
+import React, { Component } from 'react'
 import Loader from './pulse-loader'
 import PropTypes from 'prop-types'
 
@@ -16,7 +16,7 @@ class Spin extends Component {
   }
 
   _getSize(size) {
-    switch(size) {
+    switch (size) {
       case 'small':
         return '12px'
       case 'large':
@@ -32,9 +32,13 @@ class Spin extends Component {
         {/*loader*/}
         {this.props.show ? (
           <div className="cui-spin_cover">
-            <Loader color="#81d4c5" size={this._getSize(this.props.size)} margin="4px" />
+            <Loader
+              color="#81d4c5"
+              size={this._getSize(this.props.size)}
+              margin="4px"
+            />
           </div>
-        ): null}
+        ) : null}
         {this.props.children}
       </div>
     )
