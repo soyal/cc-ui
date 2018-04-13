@@ -5,6 +5,7 @@ import DemoButton from './demo/demo-button'
 import DemoTable from './demo/demo-table'
 import DemoModal from './demo/demo-modal'
 import DemoGmap from './demo/demo-gmap'
+import DemoBmap from './demo/demo-bmap'
 import DemoKeywords from './demo/demo-keywords'
 import DemoTabs from './demo/demo-tabs'
 import DemoPagination from './demo/demo-pagination'
@@ -19,6 +20,7 @@ storiesOf('Demo', module)
   .add('table', () => <DemoTable />)
   .add('modal', () => <DemoModal />)
   .add('gmap', () => <DemoGmap />)
+  .add('bmap', () => <DemoBmap />)
   .add('keywords', () => <DemoKeywords />)
   .add('pagination', () => <DemoPagination />)
   .add('tabs', () => <DemoTabs />)
