@@ -1,5 +1,6 @@
 /**
  * 百度地图
+ * 注意：高德地图和谷歌地图使用的是火星坐标系，即GCJ02，而百度使用的是百度坐标系BD09，两者需要相互转化
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
@@ -20,28 +21,112 @@ class BDMap extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.map = null // 地图实例
+    this.defaultZoom = 10 // 缩放等级
+
     this.state = {
-      keyValue: ''
+      keyword: ''
     }
   }
 
+  /**
+   * 将GCJ02坐标系转换为BD09(百度坐标系)
+   * @param {Array<Array>} 要转换的坐标 e.g [[lng, lat], [lng, lat]]
+   */
+  convertToBD(pointArr) {
+    return new Promise((resolve, reject) => {
+      const convertor = new window.BMap.Convertor()
+      const points = pointArr.map(point => {
+        return new window.BMap.Point(point[0], point[1])
+      })
+
+      convertor.translate(points, 3, 5, (...args) => {
+        resolve(...args)
+      })
+    })
+  }
+
+  /**
+   * 将[lng, lat]的格式转换成BMap.Point
+   * @param {Array} originPoint [lng, lat]
+   * @return  {BMap.Point}
+   */
+  convertPoint(originPoint) {
+    return new window.BMap.Point(...originPoint)
+  }
+
+  /**
+   * 给地图添加marker
+   * @param {Array} originPoint 原始坐标 [lng, lat]
+   * @param {String} label marker标签
+   */
+  addMarker = (originPoint, labelStr = '') => {
+    const point = this.convertPoint(originPoint)
+    const marker = new window.BMap.Marker(point)
+    if (labelStr) {
+      const label = new window.BMap.Label(labelStr, {
+        offset: new window.BMap.Size(20, -10)
+      })
+      marker.setLabel(label)
+    }
+    this.map.addOverlay(marker)
+  }
+
+  /**
+   * 视口基于originPoint居中
+   */
+  focus = (originPoint, zoom = this.map.getZoom()) => {
+    const point = new window.BMap.Point(...originPoint)
+    this.map.centerAndZoom(point, zoom)
+  }
+
   init = () => {
-    console.log('init')
     const map = new window.BMap.Map('map-container')
-    const point = new window.BMap.Point(116.404, 39.915)
-    map.centerAndZoom(point, 15)
+    this.map = map
+
+    map.enableScrollWheelZoom() // 允许滚轮缩放
+    this.installAutoComplete()
   }
 
+  /**
+   * 装在自动补全
+   */
+  installAutoComplete() {
+    const ac = new window.BMap.Autocomplete({
+      input: 'searchInput',
+      location: this.map
+    })
+
+    ac.addEventListener('onconfirm', e => {
+      console.log('ac click')
+    })
+  }
+
+  /**
+   * 放大
+   */
   zoomIn = () => {
-    console.log('zoom in')
+    const zoom = this.map.getZoom() + 1
+    this.map.setZoom(zoom)
   }
 
+  /**
+   * 缩小
+   */
   zoomOut = () => {
-    console.log('zoom out')
+    const zoom = this.map.getZoom() - 1
+    this.map.setZoom(zoom)
   }
 
   search = () => {
     console.log('search')
+  }
+
+  onKeywordChange = e => {
+    const value = e.target.value
+    this.setState({
+      keyword: value
+    })
   }
 
   componentDidMount() {
@@ -52,6 +137,17 @@ class BDMap extends PureComponent {
     }
 
     this.init()
+
+    // 初始化定位
+    const originP = [104.065751, 30.657571]
+    this.focus(originP, this.defaultZoom)
+
+    this.addMarker(originP, '转换前的坐标')
+    this.focus(originP)
+    this.convertToBD([originP]).then(data => {
+      const _p = data.points[0]
+      this.addMarker([_p.lng, _p.lat], '转换后的坐标')
+    })
   }
 
   render() {
@@ -69,10 +165,8 @@ class BDMap extends PureComponent {
               type="text"
               className="map-search-input"
               placeholder="查找位置"
-              value={this.state.keyValue}
-              onChange={() => {
-                console.log('search')
-              }}
+              value={this.state.keyword}
+              onChange={this.onKeywordChange}
               onKeyUp={e => {
                 if (e.keyCode === 13) {
                   // this.search()
@@ -86,13 +180,10 @@ class BDMap extends PureComponent {
 
           {/*放大缩小*/}
           <div className="cc-map-scale">
-            <span className="map-scale-zoomin" onClick={this.zoomIn.bind(this)}>
+            <span className="map-scale-zoomin" onClick={this.zoomIn}>
               <i className="cc-icon cc-icon-tianjia1" />
             </span>
-            <span
-              className="map-scale-zoomout"
-              onClick={this.zoomOut.bind(this)}
-            >
+            <span className="map-scale-zoomout" onClick={this.zoomOut}>
               <i className="cc-icon cc-icon-zhankai" />
             </span>
           </div>
