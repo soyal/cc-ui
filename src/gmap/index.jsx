@@ -47,7 +47,7 @@ class FsMap extends Component {
     super(props)
 
     this.state = {
-      keyValue:                   '' //搜索的关键字
+      keyValue: '' //搜索的关键字
     }
   }
 

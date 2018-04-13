@@ -11,8 +11,7 @@
     "build-lib": "rimraf lib && cross-env NODE_ENV=production  webpack --progress --hide-modules --config ./webpack/webpack.lib.config.js",
     "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "precommit": "npm test"
+    "build-storybook": "build-storybook"
   },
   "author": "soyal",
   "license": "MIT",
