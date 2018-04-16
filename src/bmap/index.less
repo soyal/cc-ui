@@ -51,12 +51,15 @@
   position: absolute;
   right: 22px;
   bottom: 68px;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
-  border-radius: 3px;
+  .icon-shadow();
   z-index: 2;
 }
+.icon-shadow() {
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+  border-radius: 3px;
+}
 
-.map-scale-zoomin, .map-scale-zoomout {
+.map-icon-item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,6 +77,13 @@
 .map-scale-zoomin {
   border: 1px solid #efefef;
 }
+.map-icon-pos {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  z-index: 2;
+  .icon-shadow();
+}
 .amap-geolocation-con {
   z-index: 2!important;
 }
@@ -90,17 +100,23 @@
     width: 15px;
     height: 15px;
     background-image: url(./images/zoom_in.png);
-    .cc-icon-cover
+    .cc-icon-cover()
   }
   &.cc-icon-zhankai {
     width: 15px;
     height: 15px;
     background-image: url(./images/zoom_out.png);
-    .cc-icon-cover
+    .cc-icon-cover()
+  }
+  &.cc-icon-pos {
+    width: 16px;
+    height: 16px;
+    background-image: url(./images/locate.png);
+    .cc-icon-cover()
   }
 }
 
-.cc-icon-cover {
+.cc-icon-cover() {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
