@@ -24,7 +24,7 @@ class BDMapDemo extends React.Component {
         }}
       >
         <BDMap
-          coordinate={this.state.coordinate}
+          // coordinate={this.state.coordinate}
           onChange={(location, result) => {
             console.log(`location: ${location}, result: ${result}`)
           }}

@@ -195,7 +195,8 @@ class BDMap extends PureComponent {
    */
   async doPos() {
     if (!this.geolocation) {
-      this.geolocation = new window.BMap.Geolocation()
+      // this.geolocation = new window.BMap.Geolocation()
+      this.geolocation = new window.BMap.LocalCity()
     }
     const self = this
     if (this.pendingPromise) {
@@ -204,24 +205,35 @@ class BDMap extends PureComponent {
 
     return (this.pendingPromise = new Promise((resolve, reject) => {
       const geo = this.geolocation
-      geo.getCurrentPosition(
-        async function(result) {
-          if (this.getStatus() === window.BMAP_STATUS_SUCCESS) {
-            const point = result.point
-            console.log('point ', point)
-            const address = await self.pointToAddress(point)
+      geo.get(async result => {
+        const point = result.center
+        console.log('point ', point)
+        const address = await self.pointToAddress(point)
 
-            this.pendingPromise = null
-            resolve({
-              location: [point.lng, point.lat],
-              address
-            })
-          } else {
-            reject()
-          }
-        },
-        { enableHighAccuracy: true }
-      )
+        this.pendingPromise = null
+        resolve({
+          location: [point.lng, point.lat],
+          address
+        })
+      })
+      // geo.getCurrentPosition(
+      //   async function(result) {
+      //     if (this.getStatus() === window.BMAP_STATUS_SUCCESS) {
+      //       const point = result.point
+      //       console.log('point ', point)
+      //       const address = await self.pointToAddress(point)
+
+      //       this.pendingPromise = null
+      //       resolve({
+      //         location: [point.lng, point.lat],
+      //         address
+      //       })
+      //     } else {
+      //       reject()
+      //     }
+      //   },
+      //   { enableHighAccuracy: true }
+      // )
     }))
   }
 
