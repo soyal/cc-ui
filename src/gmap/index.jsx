@@ -23,18 +23,19 @@ function loadAMap(cb) {
  */
 class FsMap extends Component {
   static propTypes = {
-    coordinate: PropTypes.array, // 地图初始化的时候的经纬度 设置为[0, 0]componentDidMount后不会触发onChange，设置null会回到天府新区的地理位置
+    coordinate: PropTypes.arrayOf(PropTypes.number), // 地图初始化的时候的经纬度 设置为[0, 0]componentDidMount后不会触发onChange，设置null会回到天府新区的地理位置
     /**
      * 每次用户通过搜索或者点击操作更改了经纬度的时候，触发，会返回一个对象
      * {coordinate: [lng, lat], success: 是否获取地址成功, address: 逆向编码获取到的地址}
      */
     onChange: PropTypes.func,
+    defaultCenter: PropTypes.arrayOf(PropTypes.number), // 默认地图中心点
     noty: PropTypes.object // 实现了noty接口的提示器
   }
 
   static defaultProps = {
     //104.065751,30.657571 为天府广场的经纬度
-    coordinate: [104.065751, 30.657571],
+    defaultCenter: [104.065751, 30.657571],
     noty: {
       success: () => {},
       info: () => {},
@@ -123,7 +124,7 @@ class FsMap extends Component {
         extensions: 'base'
       })
 
-      this.setCoordinate(this.props.coordinate, true)
+      // this.setCoordinate(this.props.coordinate, true)
     })
   }
 
@@ -186,7 +187,7 @@ class FsMap extends Component {
       }
 
       // 默认[0, 0]不进行逆地理编码
-      if(target[0] === 0 && target[1] === 0) return
+      if (target[0] === 0 && target[1] === 0) return
 
       if (!this.geocoder) {
         noty.warning('逆地理编码插件加载失败')
@@ -278,20 +279,11 @@ class FsMap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.coordinate &&
-      nextProps.coordinate[0] &&
-      nextProps.coordinate[1]
-    ) {
-      if (
-        nextProps.coordinate[0] === this.props.coordinate[0] &&
-        nextProps.coordinate[1] === this.props.coordinate[1]
-      ) {
-        return false
-      } else {
-        // 默认经纬度的逆地理编码等待中
-        this.setCoordinate(nextProps.coordinate, true, false, false)
-      }
+    const nCoo = nextProps.coordinate
+    const cCoo = this.props.coordinate
+    // 判断是否coordinate更改
+    if (nCoo && (!cCoo || nCoo.join(',') !== cCoo.join(','))) {
+      this.setCoordinate(nextProps.coordinate, true, false, false)
     }
   }
 
@@ -342,9 +334,14 @@ class FsMap extends Component {
 
   init() {
     this.map = new AMap.Map(this.refs.mapContainer, {
-      zoom: 10,
-      center: this.props.coordinate || [0, 0]
+      zoom: 10
     })
+
+    if (this.props.coordinate) {
+      this.setCoordinate(this.props.coordinate, false, false, false)
+    } else {
+      this.setCoordinate(this.props.defaultCenter, true, true, false)
+    }
 
     this.autoComplete()
     this.loadSearch()

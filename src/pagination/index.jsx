@@ -8,12 +8,12 @@ import './index.less'
 
 class Pagination extends Component {
   static propTypes = {
-    total: PropTypes.number.isRequired,  // 数据总数
-    pageSize: PropTypes.number.isRequired,  // 每页条数
-    current: PropTypes.number,  // 当前页数， 从1开始
-    defaultCurrent: PropTypes.number,  // 默认的初始页数，默认1
-    onChange: PropTypes.func,  // 点击页数更改的回调 (paegNo) => {}
-    style: PropTypes.object  // 样式
+    total: PropTypes.number.isRequired, // 数据总数
+    pageSize: PropTypes.number.isRequired, // 每页条数
+    current: PropTypes.number, // 当前页数， 从1开始
+    defaultCurrent: PropTypes.number, // 默认的初始页数，默认1
+    onChange: PropTypes.func, // 点击页数更改的回调 (paegNo) => {}
+    style: PropTypes.object // 样式
   }
 
   constructor(props) {
@@ -21,7 +21,7 @@ class Pagination extends Component {
 
     this.state = {
       current: props.current || props.defaultCurrent || 1,
-      size: Math.ceil(props.total / props.pageSize)  // 总页数
+      size: Math.ceil(props.total / props.pageSize) // 总页数
     }
   }
 
@@ -35,10 +35,9 @@ class Pagination extends Component {
     let indexes = []
     // 总页数 <= 6个，直接显示完
     if (this.state.size <= count) {
-
       for (let i = 0; i < this.state.size; i++) {
         indexes.push({
-          type: 'span',  // span是页码，i是省略
+          type: 'span', // span是页码，i是省略
           value: i + 1 //页码
         })
       }
@@ -93,8 +92,8 @@ class Pagination extends Component {
    * 获取页码的点亮范围
    */
   getIndexLightRange() {
-    let current = this.state.current  // 当前的页码
-    let size = this.state.size  // 总页数
+    let current = this.state.current // 当前的页码
+    let size = this.state.size // 总页数
     let result
 
     // 点亮范围为 +- 2 ，周围 2 个单位的距离
@@ -106,7 +105,7 @@ class Pagination extends Component {
         last: size
       }
       // 最后两个， 点亮最后5个
-    } else if (current <= size && current >= (size - 2)) {
+    } else if (current <= size && current >= size - 2) {
       result = {
         range: [size - 4, size],
         first: 1,
@@ -141,7 +140,7 @@ class Pagination extends Component {
    */
   prevPage() {
     let i = this.state.current - 1
-    if(i < 1) {
+    if (i < 1) {
       i = 1
     }
 
@@ -190,22 +189,33 @@ class Pagination extends Component {
 
     return (
       <div className="cc-pagination" style={this.props.style}>
-        <span className="cc-pagination-start"
+        <span
+          className="cc-pagination-start"
           onClick={() => {
             this.changeIndex(1)
-          }}>首页</span>
+          }}
+        >
+          首页
+        </span>
         {/*上一页按钮*/}
-        <i className="cc-pagination-prev"
-          onClick={this.prevPage.bind(this)}>&lt;</i>
+        <i className="cc-pagination-prev" onClick={this.prevPage.bind(this)}>
+          &lt;
+        </i>
         <div className="cc-pagination-index">
           {/*渲染页数*/}
           {indexes.map((index, num) => {
             if (index.type === 'span') {
-              return <span key={index.value}
-                onClick={() => {
-                  this.changeIndex(index.value)
-                }}
-                className={this.state.current === index.value ? 'active' : ''}>{index.value}</span>
+              return (
+                <span
+                  key={index.value}
+                  onClick={() => {
+                    this.changeIndex(index.value)
+                  }}
+                  className={this.state.current === index.value ? 'active' : ''}
+                >
+                  {index.value}
+                </span>
+              )
             } else if (index.type === 'i') {
               return <i key={'i' + num}>...</i>
             }
@@ -214,12 +224,17 @@ class Pagination extends Component {
           })}
         </div>
         {/*下一页按钮*/}
-        <i className="cc-pagination-next"
-          onClick={this.nextPage.bind(this)}>&gt;</i>
-        <span className="cc-pagination-end"
+        <i className="cc-pagination-next" onClick={this.nextPage.bind(this)}>
+          &gt;
+        </i>
+        <span
+          className="cc-pagination-end"
           onClick={() => {
             this.changeIndex(this.state.size)
-          }}>尾页</span>
+          }}
+        >
+          尾页
+        </span>
       </div>
     )
   }

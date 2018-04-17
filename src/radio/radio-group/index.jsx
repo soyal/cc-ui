@@ -1,14 +1,14 @@
 /**
  * 用于管理Radio
  */
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class RadioGroup extends Component {
   static propTypes = {
-    onChange: PropTypes.func,  // 值改变的回调
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),  // 默认选中的值
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])  // 用于设置当前选中的值
+    onChange: PropTypes.func, // 值改变的回调
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // 默认选中的值
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) // 用于设置当前选中的值
   }
 
   static childContextTypes = {
@@ -18,8 +18,9 @@ class RadioGroup extends Component {
   constructor(props) {
     super()
 
-    let children = props.children, value
-    if(children instanceof Array) {
+    let children = props.children,
+      value
+    if (children instanceof Array) {
       value = children[0].props.value
     } else {
       value = children.props.value
@@ -29,7 +30,6 @@ class RadioGroup extends Component {
       value: props.defaultValue || value
     }
   }
-
 
   getChildContext() {
     return {
@@ -45,14 +45,13 @@ class RadioGroup extends Component {
       value: value
     })
 
-    if(this.props.onChange) {
+    if (this.props.onChange) {
       this.props.onChange(value)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-
-    if(nextProps.value !== undefined) {
+    if (nextProps.value !== undefined) {
       this.setState({
         value: nextProps.value
       })
@@ -60,11 +59,7 @@ class RadioGroup extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
+    return <div>{this.props.children}</div>
   }
 }
 

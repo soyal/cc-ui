@@ -11,7 +11,7 @@ import './index.less'
 
 class Radio extends Component {
   static propTypes = {
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired  // radio的值，用来判断是否选中的依据
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired // radio的值，用来判断是否选中的依据
   }
 
   static contextTypes = {
@@ -19,7 +19,7 @@ class Radio extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.checked !== undefined) {
+    if (nextProps.checked !== undefined) {
       this.setState({
         checked: nextProps.checked
       })
@@ -27,16 +27,20 @@ class Radio extends Component {
   }
 
   render() {
-    const { value , children} = this.props
-    const {radioGroup} = this.context
+    const { value, children } = this.props
+    const { radioGroup } = this.context
 
     return (
       <div className="cc-radio">
-        <label className={`cc-radio-label ${radioGroup.value === value ? 'active' : ''}`}
-                onClick={() => {
-                  radioGroup.onChange(value)
-                }}>
-          <span className="cc-radio-circle"/>
+        <label
+          className={`cc-radio-label ${
+            radioGroup.value === value ? 'active' : ''
+          }`}
+          onClick={() => {
+            radioGroup.onChange(value)
+          }}
+        >
+          <span className="cc-radio-circle" />
           <span className="cc-radio-text">{children}</span>
         </label>
       </div>
