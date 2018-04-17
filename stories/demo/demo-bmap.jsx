@@ -6,7 +6,8 @@ import BDMap from '../../src/bmap'
 
 class BDMapDemo extends React.Component {
   state = {
-    coordinate: [104.065751, 30.657571]
+    coordinate: [104.065751, 30.657571],
+    radius: 1000
   }
 
   changeCoordinate() {
@@ -24,11 +25,16 @@ class BDMapDemo extends React.Component {
         }}
       >
         <BDMap
-          // coordinate={this.state.coordinate}
-          onChange={(location, result) => {
-            console.log(`location: ${location}, result: ${result}`)
+          coordinate={this.state.coordinate}
+          radius={this.state.radius}
+          onChange={(location, address) => {
+            console.log(`location: ${location}, address: ${address}`)
+            this.setState({
+              coordinate: location
+            })
           }}
         />
+        <p>radius: {this.state.radius}</p>
 
         <button
           onClick={() => {
@@ -36,6 +42,27 @@ class BDMapDemo extends React.Component {
           }}
         >
           更改经纬度
+        </button>
+
+        <button
+          onClick={() => {
+            this.setState({
+              radius: this.state.radius + 10
+            })
+          }}
+        >
+          +circle
+        </button>
+        <button
+          onClick={() => {
+            let r = this.state.radius - 10
+            r = r < 0 ? 0 : r
+            this.setState({
+              radius: r
+            })
+          }}
+        >
+          -circle
         </button>
       </div>
     )

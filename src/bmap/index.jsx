@@ -18,18 +18,30 @@ class BDMap extends PureComponent {
     mapKey: PropTypes.string,
     isAuto: PropTypes.bool, // 是否自动定位
     coordinate: PropTypes.arrayOf(PropTypes.number), // 坐标
+    defaultCenter: PropTypes.arrayOf(PropTypes.number), // 默认的地图中心点
     onChange: PropTypes.func,
     style: PropTypes.object,
+    autoLocate: PropTypes.bool, // 是否自动定位
     className: PropTypes.string
+  }
+
+  static defaultProps = {
+    defaultCenter: [104.065751, 30.657571],
+    autoLocate: false
   }
 
   constructor(props) {
     super(props)
 
+    this.searchInput = null // search input ref
+
+    this.coordinate = props.coordinate || null // 定位的坐标，这个是记录的外部坐标，是高德坐标系
+    this.lastCoor = null // 记录每次posMarker定位后的位置，是百度坐标系
     this.map = null // 地图实例
     this.geolocation = null // 定位实例
     this.geocoder = null // 编码器实例
     this.localSearch = null // 本地搜索
+    this.autoComplete = null
     this.overlay = {} // 添加的覆盖物
     this.pendingPromise = null
 
@@ -113,13 +125,20 @@ class BDMap extends PureComponent {
       enableDragging: true,
       raiseOnDrag: true
     })
+
+    // 添加覆盖物
+    this.addCircle(originPoint, this.props.radius)
+    this.lastCoor = originPoint
+
     posMarker.addEventListener('dragend', async e => {
       const p = e.point
       const ad = await this.pointToAddress(p)
-      this.updatePosMarkerTitle(ad)
+      const op = [p.lng, p.lat]
+      // this.updatePosMarkerTitle(ad)
+      this.updatePosMarker(op, ad)
       // this.map.setCenter(p)
 
-      this.doOnChange([p.lng, p.lat], ad)
+      this.doOnChange(op, ad)
     })
 
     posMarker.setTop(true)
@@ -127,7 +146,25 @@ class BDMap extends PureComponent {
     this.overlay.marker = posMarker
   }
 
-  updatePosMarkerTitle(title) {
+  updatePosMarker(originPoint, title) {
+    const marker = this.overlay.marker
+    if (!marker) {
+      this.addPosMarker(originPoint, title)
+      return
+    }
+
+    if (originPoint) {
+      this.lastCoor = originPoint
+      this.updateCircle(originPoint, this.props.radius)
+      this.__updatePosMarkerPosition(originPoint)
+    }
+
+    if (title) {
+      this.__updatePosMarkerTitle(title)
+    }
+  }
+
+  __updatePosMarkerTitle(title) {
     const marker = this.overlay.marker
     if (!marker) return
 
@@ -137,11 +174,11 @@ class BDMap extends PureComponent {
     marker.getLabel().setContent(title)
   }
 
-  updatePosMarkerPosition(point) {
+  __updatePosMarkerPosition(originPoint) {
     const marker = this.overlay.marker
     if (!marker) return
 
-    marker.setPosition(point)
+    marker.setPosition(this.convertPoint(originPoint))
     // this.map.setCenter(point)
   }
 
@@ -151,10 +188,13 @@ class BDMap extends PureComponent {
    * @param {Number} radius 半径，单位m
    */
   addCircle = (originPoint, radius) => {
+    this._removeOverlay('circle')
+    if (!radius) return
+
     const point = this.convertPoint(originPoint)
     const circle = new window.BMap.Circle(point, radius, {
       strokeColor: 'blue',
-      strokeWeight: 1,
+      strokeWeight: 2,
       strokeOpacity: 0.5
     })
     this.overlay['circle'] = circle
@@ -163,8 +203,21 @@ class BDMap extends PureComponent {
   }
 
   updateCircle = (originPoint, radius) => {
-    this._removeOverlay('circle')
-    this.addCircle(originPoint, radius)
+    if (!radius) return
+
+    const circle = this.overlay['circle']
+    if (!circle) {
+      this.addCircle(originPoint, radius)
+    } else {
+      if (originPoint) {
+        const point = this.convertPoint(originPoint)
+        circle.setCenter(point)
+      }
+
+      if (radius) {
+        circle.setRadius(radius)
+      }
+    }
   }
 
   _removeOverlay = name => {
@@ -207,7 +260,6 @@ class BDMap extends PureComponent {
       const geo = this.geolocation
       geo.get(async result => {
         const point = result.center
-        console.log('point ', point)
         const address = await self.pointToAddress(point)
 
         this.pendingPromise = null
@@ -239,9 +291,10 @@ class BDMap extends PureComponent {
 
   /**
    * 通过外部传入的经纬度进行视口矫正和marker定位
-   * @param {Array<Number>} coordinate
+   * @param {Array<Number>} coordinate [lng, lat]
+   * @param {Boolean} mark 是否添加marker
    */
-  async posByCoordinate(coordinate) {
+  async posByCoordinate(coordinate, mark = true) {
     if (this.pendingPromise) {
       await this.pendingPromise
     }
@@ -252,7 +305,7 @@ class BDMap extends PureComponent {
         const originPoints = await this.convertToBD([coordinate])
         const p = originPoints[0]
         const address = await this.pointToAddress(this.convertPoint(p))
-        this.addPosMarker(p, address)
+        mark && this.addPosMarker(p, address)
         this.focus(p, defaultZoom)
         this.pendingPromise = null
       })()
@@ -288,8 +341,8 @@ class BDMap extends PureComponent {
             : target.address
 
           const p = target.point
-          this.updatePosMarkerPosition(p)
-          this.updatePosMarkerTitle(address)
+
+          this.updatePosMarker([p.lng, p.lat], address)
           this.map.setCenter(p)
 
           this.doOnChange([p.lng, p.lat], address)
@@ -329,37 +382,53 @@ class BDMap extends PureComponent {
     this.map.centerAndZoom(point, zoom)
   }
 
-  init = () => {
+  __init = () => {
     const map = new window.BMap.Map('map-container')
     this.map = map
 
     map.enableScrollWheelZoom() // 允许滚轮缩放
     this.__installAutoComplete()
     this.__listenMapClick()
+    this.__listenMapDragEnd()
   }
 
   /**
    * 装载自动补全
    */
   __installAutoComplete() {
-    const ac = new window.BMap.Autocomplete({
+    this.autoComplete = new window.BMap.Autocomplete({
       input: 'searchInput',
       location: this.map
     })
 
-    ac.addEventListener('onconfirm', e => {
-      this.doLocalSearch(e.item.value.business)
+    this.autoComplete.addEventListener('onconfirm', e => {
+      const value = e.item.value.business
+      this.doLocalSearch(value)
     })
   }
 
+  /**
+   * 检测对地图的点击
+   */
   __listenMapClick() {
     this.map.addEventListener('click', async e => {
       const p = e.point
       const ad = await this.pointToAddress(p)
-      this.updatePosMarkerPosition(p)
-      this.updatePosMarkerTitle(ad)
+      this.updatePosMarker([p.lng, p.lat], ad)
+      // this.updatePosMarkerPosition(p)
+      // this.updatePosMarkerTitle(ad)
 
       this.doOnChange([p.lng, p.lat], ad)
+    })
+  }
+
+  /**
+   * 监听对地图的拖拽
+   */
+  __listenMapDragEnd() {
+    this.map.addEventListener('dragend', e => {
+      const center = this.map.getCenter()
+      this.autoComplete.setLocation(center)
     })
   }
 
@@ -378,14 +447,7 @@ class BDMap extends PureComponent {
   }
 
   onSearch = () => {
-    this.doLocalSearch(this.state.keyword)
-  }
-
-  onKeywordChange = e => {
-    const value = e.target.value
-    this.setState({
-      keyword: value
-    })
+    this.doLocalSearch(this.searchInput.value)
   }
 
   /**
@@ -396,6 +458,7 @@ class BDMap extends PureComponent {
    */
   async doOnChange(location, address, title = '') {
     const points = await this.convertToGD([location])
+    this.coordinate = points[0]
 
     this.props.onChange && this.props.onChange(points[0], address)
   }
@@ -406,9 +469,14 @@ class BDMap extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const nCoo = nextProps.coordinate
-    const cCoo = this.props.coordinate
-    if (nCoo && cCoo && nCoo.join(',') === cCoo.join(',')) {
-      this.posByCoordinate(cCoo)
+    const cCoo = this.coordinate
+
+    // 对比父组件传进的coordinate与上次onChange的时候记录的coordinate的差别
+    if (nCoo && (!cCoo || nCoo.join(',') !== cCoo.join(','))) {
+      this.coordinate = nCoo
+      this.posByCoordinate(nCoo)
+    } else if (nextProps.radius !== this.props.radius) {
+      this.updateCircle(this.lastCoor, nextProps.radius)
     }
   }
 
@@ -419,25 +487,19 @@ class BDMap extends PureComponent {
       )
     }
 
-    this.init()
+    this.__init()
 
     if (this.props.coordinate) {
       this.posByCoordinate(this.props.coordinate)
     } else {
-      this.doAutoPos(true)
+      // 自动定位
+      if (this.props.autoLocate) {
+        this.doAutoPos(false)
+        // 坐标定位
+      } else {
+        this.posByCoordinate(this.props.defaultCenter, false)
+      }
     }
-    // 初始化定位
-    // const originP = defaultPos
-    // this.focus(originP, defaultZoom)
-    // // 添加覆盖物
-    // this.addCircle(originP, 10)
-
-    // this.addMarker(originP, '转换前的坐标')
-    // this.focus(originP)
-    // this.convertToBD([originP]).then(data => {
-    //   const _p = data.points[0]
-    //   this.addPosMarker([_p.lng, _p.lat], '转换后的坐标')
-    // })
   }
 
   render() {
@@ -451,12 +513,12 @@ class BDMap extends PureComponent {
           <div className="cc-map-search">
             <input
               id="searchInput"
-              ref="searchInput"
+              ref={dom => {
+                this.searchInput = dom
+              }}
               type="text"
               className="map-search-input"
               placeholder="查找位置"
-              value={this.state.keyword}
-              onChange={this.onKeywordChange}
             />
             <span className="map-search-icon" onClick={this.onSearch}>
               <i className="cc-icon cc-icon-sousuo" />
