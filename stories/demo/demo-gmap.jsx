@@ -5,7 +5,7 @@ import 'gmap/index.css'
 
 class Demo extends Component {
   state = {
-    coordinate: [0, 0]
+    coordinate: [100.065751, 25.657571]
   }
 
   componentDidMount() {
@@ -13,7 +13,7 @@ class Demo extends Component {
       this.setState({
         coordinate: [104.065751, 30.657571]
       })
-    }, 500)
+    }, 1000)
   }
 
   render() {
@@ -26,6 +26,7 @@ class Demo extends Component {
       >
         <AMap
           coordinate={this.state.coordinate}
+          defaultCenter={this.state.coordinate}
           onChange={({ coordinate, success, address }) => {
             console.log('gmap onchange', success, address)
           }}
