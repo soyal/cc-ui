@@ -30,12 +30,14 @@ class FsMap extends Component {
      */
     onChange: PropTypes.func,
     defaultCenter: PropTypes.arrayOf(PropTypes.number), // 默认地图中心点
-    noty: PropTypes.object // 实现了noty接口的提示器
+    noty: PropTypes.object, // 实现了noty接口的提示器
+    inputDisabled: PropTypes.bool // 禁止输入，如果为true，无法通过click来控制浮标
   }
 
   static defaultProps = {
     //104.065751,30.657571 为天府广场的经纬度
     defaultCenter: [104.065751, 30.657571],
+    inputDisabled: false,
     noty: {
       success: () => {},
       info: () => {},
@@ -243,7 +245,7 @@ class FsMap extends Component {
       this.marker = new AMap.Marker({
         map: this.map,
         position: location,
-        draggable: true
+        draggable: !this.props.inputDisabled
       })
 
       AMap.event.addListener(this.marker, 'dragend', e => {
@@ -288,44 +290,54 @@ class FsMap extends Component {
   }
 
   render() {
+    const { inputDisabled } = this.props
+
     return (
       <div className="cc-map-wrapper">
         {/*地图的工具组 包括搜索、放大缩小、定位*/}
-        <div className="cc-map-toolbar">
-          {/*搜索*/}
-          <div className="cc-map-search">
-            <input
-              id="searchInput"
-              ref="searchInput"
-              type="text"
-              className="map-search-input"
-              placeholder="查找位置"
-              value={this.state.keyValue}
-              onChange={this.onSearchInputChange.bind(this)}
-              onKeyUp={e => {
-                if (e.keyCode === 13) {
-                  // this.search()
-                }
-              }}
-            />
-            <span className="map-search-icon" onClick={this.search.bind(this)}>
-              <i className="cc-icon cc-icon-sousuo" />
-            </span>
-          </div>
+        {inputDisabled ? null : (
+          <div className="cc-map-toolbar">
+            {/*搜索*/}
+            <div className="cc-map-search">
+              <input
+                id="searchInput"
+                ref="searchInput"
+                type="text"
+                className="map-search-input"
+                placeholder="查找位置"
+                value={this.state.keyValue}
+                onChange={this.onSearchInputChange.bind(this)}
+                onKeyUp={e => {
+                  if (e.keyCode === 13) {
+                    // this.search()
+                  }
+                }}
+              />
+              <span
+                className="map-search-icon"
+                onClick={this.search.bind(this)}
+              >
+                <i className="cc-icon cc-icon-sousuo" />
+              </span>
+            </div>
 
-          {/*放大缩小*/}
-          <div className="cc-map-scale">
-            <span className="map-scale-zoomin" onClick={this.zoomIn.bind(this)}>
-              <i className="cc-icon cc-icon-tianjia1" />
-            </span>
-            <span
-              className="map-scale-zoomout"
-              onClick={this.zoomOut.bind(this)}
-            >
-              <i className="cc-icon cc-icon-zhankai" />
-            </span>
+            {/*放大缩小*/}
+            <div className="cc-map-scale">
+              <span
+                className="map-scale-zoomin"
+                onClick={this.zoomIn.bind(this)}
+              >
+                <i className="cc-icon cc-icon-tianjia1" />
+              </span>
+              <span
+                className="map-scale-zoomout"
+                onClick={this.zoomOut.bind(this)}
+              >
+                <i className="cc-icon cc-icon-zhankai" />
+              </span>
+            </div>
           </div>
-        </div>
+        )}
         {/*地图容器*/}
         <div className="cc-map" id="map-container" ref="mapContainer" />
       </div>
@@ -345,9 +357,12 @@ class FsMap extends Component {
 
     this.autoComplete()
     this.loadSearch()
-    this.loadGeolocation()
     this.loadGeocoder()
-    this.listenMapClick()
+    // 禁用输入则不响应click，也不能进行定位
+    if (!this.props.inputDisabled) {
+      this.listenMapClick()
+      this.loadGeolocation()
+    }
   }
 
   componentDidMount() {
