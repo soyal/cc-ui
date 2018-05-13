@@ -6,6 +6,9 @@
     "react-motion",
     "react-router",
     "react-router-dom",
-    "classnames"
+    "classnames",
+    "@fs/noty",
+    "art-qr",
+    "domkit"
   ]
 }

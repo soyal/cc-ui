@@ -1,5 +1,10 @@
 node_modules/
 stories/
+src/
+webpack/
+config.json
 .storybook/
 .vscode/
 .idea/
+.babelrc
+.eslintrc.json

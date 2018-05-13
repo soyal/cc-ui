@@ -1,0 +1,43 @@
+.cc-checkbox_wrap {
+  display: inline-block;
+}
+
+.cc-checkbox_container {
+  display: flex;
+  align-items: center;
+}
+
+.cc-checkbox_gou {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  margin-right: 4px;
+  border: 2px solid #999;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1) inset;
+  cursor: pointer;
+  background: #fff;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+  &.checked {
+    border-color: transparent;
+    background: #81d4c6;
+    box-shadow: none;
+  }
+}
+
+.cc-checkbox_input {
+  display: none;
+}
+
+.cc-checkbox_ico {
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+  background-image: url(./images/gou.png);
+}
+
+.cc-checkbox_text {
+  color: #666;
+}

@@ -1,0 +1,59 @@
+.cc-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.cc-pagination-start, .cc-pagination-end {
+  cursor: pointer;
+  transition: color 0.3s linear;
+  &:hover {
+    color: #999;
+  }
+}
+.cc-pagination-start {
+  margin-right: 15px;
+}
+.cc-pagination-end {
+  margin-left: 15px;
+}
+
+.cc-pagination-prev, .cc-pagination-next {
+  padding: 5px;
+  cursor: pointer;
+  transition: color 0.3s linear;
+  &:hover {
+    color: #999;
+  }
+}
+
+.cc-pagination-index {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  & > i {
+    padding: 0 5px;
+  }
+  & > span {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    margin: 0 3px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: color 0.2s linear, background 0.2s linear;
+    &:hover {
+      background: #81D4C6;
+      color: #fff;
+    }
+    &.active {
+      background: #81D4C6;
+      color: #fff;
+      cursor: default;
+    }
+  }
+}

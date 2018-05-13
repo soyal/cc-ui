@@ -63,6 +63,15 @@ module.exports = {
                         }
                     ]
                 })
+            },
+            // 加载图片
+            {
+                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                loader: require.resolve('url-loader'),
+                options: {
+                    limit: 10000,
+                    name: '[name]/images/[name].[hash:8].[ext]',
+                },
             }
         ]
     },
@@ -79,13 +88,17 @@ module.exports = {
 
 /**
  * 生成所有的入口键值对
+ * {
+ *  a: '/src/a/index.jsx'
+ * }
  */
 function getEntries() {
     const allFileNames = fs.readdirSync(path.resolve(__dirname, '../src'))
     const entries = {}
+    const externals = require('./dir-external')
 
     allFileNames.forEach((dirname) => {
-        if (dirname === 'index.js') return
+        if (externals.indexOf(dirname) > -1) return
 
         entries[dirname] = path.resolve(__dirname, '../src', dirname, 'index.jsx')
     })

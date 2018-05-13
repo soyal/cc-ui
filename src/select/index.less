@@ -1,0 +1,105 @@
+@import '../style/common.less';
+.mpc-select {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  color: #333;
+  border-radius: 5px;
+  height: 36px;
+  &.white .mpc-select_text {
+    border-color: #92accc;
+    &.deactive {
+      color: #747474;
+      border-color: #C7C8C8;
+    }
+  }
+  &.white .mpc-select_text.active {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    border-color: #92accc;
+  }
+  &.grey {
+    background: #fafafa;
+  }
+  &.grey .mpc-select_text {
+    border-color: #c7c8c8;
+  }
+}
+
+.mpc-select_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+  height: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  overflow: hidden;
+  &>.mpc-select_triangle {
+    background-image: url(./images/triangle_select.png);
+  }
+  &.active>.mpc-select_triangle {
+    background-image: url(./images/triangle_active.png);
+  }
+  &.deactive>.mpc-select_triangle {
+    background-image: url(./images/triangle_normal.png);
+  }
+}
+
+.mpc-select_triangle {
+  width: 6px;
+  height: 4px;
+  margin-left: 10px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.mpc-select_panel {
+  position: absolute;
+  top: 101%;
+  left: 0;
+  z-index: 2;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.mpc-select_panel-item {
+  position: relative;
+  font-size: 14px;
+  height: 25px;
+  line-height: 25px;
+  padding-left: 23px;
+  padding-right: 6px;
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    background: #f4f7f7;
+  }
+  &.active:before {
+    content: "";
+    position: absolute;
+    font-family: "iconfont";
+    left: 6px;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    background-image: url(./images/gou.png);
+    .bg-cover;
+    transform: translateY(-50%);
+    color: #333;
+  }
+}
+
+.mpc-select_text-span {
+  color: transparent;
+}
+
+.mpc-select_text-span-true {
+  position: absolute;
+}
