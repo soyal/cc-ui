@@ -79,9 +79,13 @@ class FsMap extends Component {
     })
   }
 
-  blockEvent = e => {
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
+  /**
+   * 将在input中回车的按键操作给阻止了，防止一些在form中的异常情况
+   */
+  blockEnter = e => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+    }
   }
 
   /**
@@ -312,13 +316,12 @@ class FsMap extends Component {
                 placeholder="查找位置"
                 value={this.state.keyValue}
                 onChange={this.onSearchInputChange.bind(this)}
-                onKeyDown={this.blockEvent}
-                onKeyPress={this.blockEvent}
+                onKeyDown={this.blockEnter}
+                onKeyPress={this.blockEnter}
                 onKeyUp={e => {
-                  e.stopPropagation()
-                  e.nativeEvent.stopImmediatePropagation()
                   if (e.keyCode === 13) {
                     // this.search()
+                    e.preventDefault()
                   }
                 }}
               />
