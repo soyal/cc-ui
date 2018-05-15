@@ -79,6 +79,11 @@ class FsMap extends Component {
     })
   }
 
+  blockEvent = e => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+  }
+
   /**
    * 装载search相关的插件
    */
@@ -307,7 +312,11 @@ class FsMap extends Component {
                 placeholder="查找位置"
                 value={this.state.keyValue}
                 onChange={this.onSearchInputChange.bind(this)}
+                onKeyDown={this.blockEvent}
+                onKeyPress={this.blockEvent}
                 onKeyUp={e => {
+                  e.stopPropagation()
+                  e.nativeEvent.stopImmediatePropagation()
                   if (e.keyCode === 13) {
                     // this.search()
                   }
