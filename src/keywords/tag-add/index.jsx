@@ -22,6 +22,8 @@ class TagAdd extends Component {
 
   onKeyUp = e => {
     if (e.keyCode === 13) {
+      e.stopPropagation()
+      e.nativeEvent.stopImmediatePropagation()
       const value = this.input.value
 
       this.doOnEnter(value)
@@ -40,6 +42,20 @@ class TagAdd extends Component {
               this.input = dom
               if (dom) {
                 dom.focus()
+              }
+            }}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                e.stopPropagation()
+                e.preventDefault()
+                e.nativeEvent.stopImmediatePropagation()
+              }
+            }}
+            onKeyPress={e => {
+              if (e.keyCode === 13) {
+                e.stopPropagation()
+                e.preventDefault()
+                e.nativeEvent.stopImmediatePropagation()
               }
             }}
             className="tp_tag-add-input"

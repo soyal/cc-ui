@@ -15,6 +15,8 @@ import DemoRadio from './demo/demo-radio'
 import DemoSpin from './demo/demo-spin'
 import DemoHeader from './demo/demo-header'
 
+import './index.css'
+
 storiesOf('Demo', module)
   .add('button', () => <DemoButton />)
   .add('table', () => <DemoTable />)
