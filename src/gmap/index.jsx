@@ -83,6 +83,8 @@ class FsMap extends Component {
    * 将在input中回车的按键操作给阻止了，防止一些在form中的异常情况
    */
   blockEnter = e => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
     if (e.keyCode === 13) {
       e.preventDefault()
     }
@@ -319,6 +321,8 @@ class FsMap extends Component {
                 onKeyDown={this.blockEnter}
                 onKeyPress={this.blockEnter}
                 onKeyUp={e => {
+                  e.stopPropagation()
+                  e.nativeEvent.stopImmediatePropagation()
                   if (e.keyCode === 13) {
                     // this.search()
                     e.preventDefault()
