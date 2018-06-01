@@ -74,7 +74,14 @@ class FsMap extends Component {
       AMap.event.addListener(auto, 'select', e => {
         map.setZoom(15)
         // 标记
-        this.setCoordinate(e.poi.location)
+        const location = e.poi.location
+        if (location) {
+          this.setCoordinate(e.poi.location)
+        } else {
+          const info = '无效的地理位置'
+          console.error(info)
+          this.props.noty.warning(info)
+        }
       })
     })
   }
