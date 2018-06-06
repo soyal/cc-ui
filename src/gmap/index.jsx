@@ -231,7 +231,8 @@ class FsMap extends Component {
             address: address,
             province: ad.province,
             city: ad.city,
-            district: ad.district
+            district: ad.district,
+            adcode: ad.adcode
           })
           // 获取地址失败
         } else {
