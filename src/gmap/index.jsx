@@ -217,7 +217,8 @@ class FsMap extends Component {
       this.geocoder.getAddress(target, (status, result) => {
         // 获取地址成功
         if (status === 'complete' && result.info === 'OK') {
-          let address = result.regeocode.formattedAddress //返回地址描述
+          const address = result.regeocode.formattedAddress //返回地址描述
+          const { addressComponent: ad = {} } = result.regeocode
 
           // 定位成功进行提示
           if (!cancelNoty) {
@@ -227,7 +228,10 @@ class FsMap extends Component {
           this.props.onChange({
             success: true,
             coordinate: target,
-            address: address
+            address: address,
+            province: ad.province,
+            city: ad.city,
+            district: ad.district
           })
           // 获取地址失败
         } else {

@@ -27,8 +27,8 @@ class Demo extends Component {
         <AMap
           coordinate={this.state.coordinate}
           defaultCenter={this.state.coordinate}
-          onChange={({ coordinate, success, address }) => {
-            console.log('gmap onchange', success, address)
+          onChange={result => {
+            console.log('gmap onchange', result)
           }}
         />
       </div>
