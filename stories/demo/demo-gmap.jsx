@@ -27,6 +27,7 @@ class Demo extends Component {
         <AMap
           coordinate={this.state.coordinate}
           defaultCenter={this.state.coordinate}
+          defaultZoom={13}
           onChange={result => {
             console.log('gmap onchange', result)
           }}

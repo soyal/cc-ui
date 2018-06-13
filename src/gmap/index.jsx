@@ -30,6 +30,7 @@ class FsMap extends Component {
      */
     onChange: PropTypes.func,
     defaultCenter: PropTypes.arrayOf(PropTypes.number), // 默认地图中心点
+    defaultZoom: PropTypes.number, // 默认的缩放值
     noty: PropTypes.object, // 实现了noty接口的提示器
     inputDisabled: PropTypes.bool // 禁止输入，如果为true，无法通过click来控制浮标
   }
@@ -37,6 +38,7 @@ class FsMap extends Component {
   static defaultProps = {
     //104.065751,30.657571 为天府广场的经纬度
     defaultCenter: [104.065751, 30.657571],
+    defaultZoom: 10,
     inputDisabled: false,
     noty: {
       success: () => {},
@@ -374,7 +376,7 @@ class FsMap extends Component {
 
   init() {
     this.map = new AMap.Map(this.refs.mapContainer, {
-      zoom: 10
+      zoom: this.props.defaultZoom
     })
 
     if (this.props.coordinate) {
