@@ -353,13 +353,11 @@ class FsMap extends Component {
     if (nCoo && (!cCoo || nCoo.join(',') !== cCoo.join(','))) {
       this.setCoordinate(nextProps.coordinate, true, false, false)
       this.setCircle(nCoo)
-      console.log('1', nCoo)
     } else {
       const nRadius = nextProps.radius
       const oRadius = this.props.radius
       if (nRadius !== oRadius) {
         this.setCircle(nCoo, nRadius)
-        console.log('2', nCoo)
       }
     }
   }
