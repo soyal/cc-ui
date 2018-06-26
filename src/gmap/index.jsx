@@ -32,7 +32,8 @@ class FsMap extends Component {
     defaultCenter: PropTypes.arrayOf(PropTypes.number), // 默认地图中心点
     defaultZoom: PropTypes.number, // 默认的缩放值
     noty: PropTypes.object, // 实现了noty接口的提示器
-    inputDisabled: PropTypes.bool // 禁止输入，如果为true，无法通过click来控制浮标
+    inputDisabled: PropTypes.bool, // 禁止输入，如果为true，无法通过click来控制浮标
+    radius: PropTypes.number // 区域半径
   }
 
   static defaultProps = {
@@ -40,6 +41,7 @@ class FsMap extends Component {
     defaultCenter: [104.065751, 30.657571],
     defaultZoom: 10,
     inputDisabled: false,
+    radius: 0,
     noty: {
       success: () => {},
       info: () => {},
@@ -97,6 +99,59 @@ class FsMap extends Component {
     if (e.keyCode === 13) {
       e.preventDefault()
     }
+  }
+
+  setMarker(location) {
+    // 设置Marker
+    if (this.marker) {
+      this.marker.setPosition(location)
+    } else {
+      this.marker = new AMap.Marker({
+        map: this.map,
+        position: location,
+        draggable: !this.props.inputDisabled
+      })
+
+      AMap.event.addListener(this.marker, 'dragend', e => {
+        const lnglat = e.lnglat
+        const coor = [lnglat.lng, lnglat.lat]
+        this.callBackCoordinate(coor)
+      })
+    }
+
+    this.setCircle(location)
+
+    return this.marker
+  }
+
+  setCircle(location, radius = this.props.radius) {
+    if (radius === 0) {
+      if (this.circle) {
+        this.circle.setRadius(0)
+      }
+      return
+    }
+
+    // 设置Circle
+    if (this.circle) {
+      this.circle.setCenter(location)
+      this.circle.setRadius(radius)
+    } else {
+      const circle = new AMap.Circle({
+        center: location, // 圆心位置
+        radius, //半径
+        strokeColor: '#F33', //线颜色
+        strokeOpacity: 1, //线透明度
+        strokeWeight: 3, //线粗细度
+        fillColor: '#ee2200', //填充颜色
+        fillOpacity: 0.35 //填充透明度
+      })
+      circle.setMap(this.map)
+
+      this.circle = circle
+    }
+
+    return this.circle
   }
 
   /**
@@ -264,21 +319,7 @@ class FsMap extends Component {
     }
 
     // 设置marker的位置
-    if (this.marker) {
-      this.marker.setPosition(location)
-    } else {
-      this.marker = new AMap.Marker({
-        map: this.map,
-        position: location,
-        draggable: !this.props.inputDisabled
-      })
-
-      AMap.event.addListener(this.marker, 'dragend', e => {
-        const lnglat = e.lnglat
-        const coor = [lnglat.lng, lnglat.lat]
-        this.callBackCoordinate(coor)
-      })
-    }
+    this.setMarker(location)
 
     if (triggerOnChange) {
       this.callBackCoordinate(location, cancelNoty)
@@ -311,6 +352,15 @@ class FsMap extends Component {
     // 判断是否coordinate更改
     if (nCoo && (!cCoo || nCoo.join(',') !== cCoo.join(','))) {
       this.setCoordinate(nextProps.coordinate, true, false, false)
+      this.setCircle(nCoo)
+      console.log('1', nCoo)
+    } else {
+      const nRadius = nextProps.radius
+      const oRadius = this.props.radius
+      if (nRadius !== oRadius) {
+        this.setCircle(nCoo, nRadius)
+        console.log('2', nCoo)
+      }
     }
   }
 

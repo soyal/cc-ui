@@ -5,7 +5,8 @@ import 'gmap/index.css'
 
 class Demo extends Component {
   state = {
-    coordinate: [100.065751, 25.657571]
+    coordinate: [100.065751, 25.657571],
+    radius: 0
   }
 
   componentDidMount() {
@@ -28,8 +29,22 @@ class Demo extends Component {
           coordinate={this.state.coordinate}
           defaultCenter={this.state.coordinate}
           defaultZoom={13}
+          radius={this.state.radius}
           onChange={result => {
             console.log('gmap onchange', result)
+            this.setState({
+              coordinate: result.coordinate
+            })
+          }}
+        />
+        <input
+          type="number"
+          value={this.state.radius}
+          onChange={e => {
+            const value = e.target.value || 0
+            this.setState({
+              radius: parseInt(value, 10)
+            })
           }}
         />
       </div>
