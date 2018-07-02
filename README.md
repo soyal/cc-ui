@@ -137,6 +137,7 @@ class Demo extends Component {
 * inputDisabled: Boolean, 禁用所有用户输入，只能进行地理位置显示
 * defaultCenter: Array [lng, lat],e.g:[134.111, 56] 如果不传入coordinate，地图会以defaultCenter为视口中心点，默认为天府新区
 * onChange: function,(data: Object): void 定位的回调 data: {coordinate: [lng, lat], success: 是否获取地址成功, address: 逆向编码获取到的地址}
+* radius: number, 基于选择的坐标绘制的圆形区域半径
 * noty: Object, 实现了noty接口的对象, {warning: function, success: function, error: function, info: function}
 
 ### example
